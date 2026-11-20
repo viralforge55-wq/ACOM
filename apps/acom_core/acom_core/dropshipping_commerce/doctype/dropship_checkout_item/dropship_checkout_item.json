@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "creation": "2026-11-20 15:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "dropshipping_product",
+  "product_slug",
+  "product_title",
+  "erpnext_item",
+  "supplier",
+  "supplier_sku",
+  "quantity",
+  "unit_price",
+  "supplier_cost",
+  "line_total"
+ ],
+ "fields": [
+  {
+   "fieldname": "dropshipping_product",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Dropshipping Product",
+   "options": "Dropshipping Product",
+   "reqd": 1
+  },
+  {
+   "fieldname": "product_slug",
+   "fieldtype": "Data",
+   "label": "Product Slug",
+   "reqd": 1
+  },
+  {
+   "fieldname": "product_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Product Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "erpnext_item",
+   "fieldtype": "Link",
+   "label": "ERPNext Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier",
+   "reqd": 1
+  },
+  {
+   "fieldname": "supplier_sku",
+   "fieldtype": "Data",
+   "label": "Supplier SKU",
+   "reqd": 1
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Quantity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "unit_price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Unit Price",
+   "reqd": 1
+  },
+  {
+   "fieldname": "supplier_cost",
+   "fieldtype": "Currency",
+   "label": "Supplier Cost",
+   "reqd": 1
+  },
+  {
+   "fieldname": "line_total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Line Total",
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-11-20 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Dropshipping Commerce",
+ "name": "Dropship Checkout Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

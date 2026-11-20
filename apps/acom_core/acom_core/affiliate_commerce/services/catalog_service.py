@@ -1,16 +1,17 @@
 """Public read-only catalog service (API_CONTRACTS.md §1, DATA_DICTIONARY.md §13).
 
-Security invariants:
+Serves both AFFILIATE and DROPSHIP Published products with strict separation:
 - Strictly selects explicit safe columns via Frappe ORM (zero raw SQL, never doc.as_dict()).
-- Only returns Affiliate Products where status == 'Published' AND linked
-  Affiliate Network status == 'Active'.
-- Runtime guard (`assert_no_banned_fields`) verifies recursively that no banned
-  or private field ever leaves this service.
+- Affiliate products return `sales_type: "AFFILIATE"`, `cta_label: "View Deal"`, and NEVER raw `affiliate_url`.
+- Dropship products return `sales_type: "DROPSHIP"`, `cta_label: "Add to Cart"`, coarse `availability`
+  band (NEVER raw `supplier_stock`), and NEVER `supplier_cost`, `supplier`, `supplier_sku`, or margins.
+- Runtime guard (`assert_no_banned_fields`) verifies recursively that no banned field ever leaves.
 """
 
 from __future__ import annotations
 
 import math
+from decimal import Decimal
 from typing import Any
 
 import frappe
@@ -31,12 +32,17 @@ ALLOWED_SORTS = frozenset({"newest", "popular", "price_asc", "price_desc"})
 MAX_PAGE_SIZE = 100
 
 # Authoritative union of DATA_DICTIONARY.md §13 + API_CONTRACTS.md §1 forbidden fields
-# plus Frappe internal document metadata that must never leak on public endpoints.
+# plus private dropshipping cost/stock/ERP fields and Frappe internal metadata.
 BANNED_PUBLIC_FIELDS = frozenset(
     {
         "supplier_cost",
         "supplier",
         "supplier_sku",
+        "supplier_stock",
+        "shipping_cost",
+        "packaging_cost",
+        "price_list",
+        "erpnext_item",
         "contribution_profit",
         "contribution_margin_pct",
         "payment_fee_percent",
@@ -110,7 +116,16 @@ def _get_disclosure_text() -> str:
     return DEFAULT_DISCLOSURE_TEXT
 
 
-def _serialize_catalog_card(row: dict[str, Any]) -> dict[str, Any]:
+def _quantity_band(raw_stock: int | None) -> tuple[bool, str]:
+    qty = int(raw_stock or 0)
+    if qty >= 5:
+        return (True, "5+")
+    if qty > 0:
+        return (True, "1-4")
+    return (False, "Out of Stock")
+
+
+def _serialize_affiliate_card(row: dict[str, Any]) -> dict[str, Any]:
     category_name = row.get("category") or ""
     item: dict[str, Any] = {
         "id": row["name"],
@@ -131,8 +146,35 @@ def _serialize_catalog_card(row: dict[str, Any]) -> dict[str, Any]:
     return item
 
 
+def _serialize_dropship_card(row: dict[str, Any]) -> dict[str, Any]:
+    category_name = row.get("category") or ""
+    in_stock, band = _quantity_band(row.get("supplier_stock"))
+    price_obj = format_money(row["selling_price"], row.get("currency") or "INR")
+    item: dict[str, Any] = {
+        "id": row["name"],
+        "slug": row["slug"],
+        "title": row["product_name"],
+        "sales_type": "DROPSHIP",
+        "category": {
+            "slug": normalize_slug(category_name),
+            "name": category_name,
+        },
+        "marketplace": "ACOM Direct",
+        "display_price": price_obj,
+        "price": price_obj,
+        "availability": {
+            "in_stock": in_stock,
+            "quantity_band": band,
+            "ships_in_days": int(row.get("lead_time_days") or 3),
+        },
+        "cta_label": "Add to Cart",
+    }
+    if row.get("image"):
+        item["image_url"] = row["image"]
+    return item
+
+
 def _resolve_category_filter(category_param: str) -> str | None:
-    """Resolve category query param (either exact Item Group name or normalized slug)."""
     cleaned = category_param.strip()
     if not cleaned:
         return None
@@ -146,6 +188,15 @@ def _resolve_category_filter(category_param: str) -> str | None:
     return None
 
 
+def _sort_key_for_merged(entry: tuple[dict[str, Any], str, Decimal], sort: str):
+    card, ts, price_dec = entry
+    if sort == "price_asc":
+        return (price_dec, card["slug"])
+    if sort == "price_desc":
+        return (-price_dec, card["slug"])
+    return ts
+
+
 def list_public_catalog(
     *,
     page: int = 1,
@@ -155,7 +206,7 @@ def list_public_catalog(
     sort: str = "newest",
     q: str | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Return paginated public catalog items and pagination metadata."""
+    """Return paginated public catalog items (AFFILIATE and/or DROPSHIP) and metadata."""
     try:
         page_num = int(page)
         size_num = int(page_size)
@@ -202,25 +253,7 @@ def list_public_catalog(
             details={"fields": ["sort"]},
         )
 
-    # Phase 2 is Affiliate-only (ADR-0001); DROPSHIP cleanly returns an empty catalog.
-    if normalized_sales_type == "DROPSHIP":
-        return (
-            {"items": []},
-            {"total": 0, "page": page_num, "page_size": size_num, "has_next": False},
-        )
-
-    active_networks = _active_network_names()
-    if not active_networks:
-        return (
-            {"items": []},
-            {"total": 0, "page": page_num, "page_size": size_num, "has_next": False},
-        )
-
-    filters: dict[str, Any] = {
-        "status": "Published",
-        "affiliate_network": ["in", active_networks],
-    }
-
+    resolved_cat: str | None = None
     if category is not None and str(category).strip():
         resolved_cat = _resolve_category_filter(str(category))
         if not resolved_cat:
@@ -228,7 +261,6 @@ def list_public_catalog(
                 {"items": []},
                 {"total": 0, "page": page_num, "page_size": size_num, "has_next": False},
             )
-        filters["category"] = resolved_cat
 
     or_filters = None
     if q is not None and str(q).strip():
@@ -245,44 +277,85 @@ def list_public_catalog(
             "short_description": ["like", f"%{query}%"],
         }
 
-    order_map = {
-        "newest": "creation desc",
-        "popular": "modified desc",
-        "price_asc": "display_price asc, creation desc",
-        "price_desc": "display_price desc, creation desc",
-    }
+    merged: list[tuple[dict[str, Any], str, Decimal]] = []
 
-    all_matching_names = frappe.get_all(
-        "Affiliate Product",
-        filters=filters,
-        or_filters=or_filters,
-        pluck="name",
-        ignore_permissions=True,
-    )
-    total = len(all_matching_names)
+    # 1. Affiliate Products
+    if normalized_sales_type in (None, "AFFILIATE"):
+        active_networks = _active_network_names()
+        if active_networks:
+            aff_filters: dict[str, Any] = {
+                "status": "Published",
+                "affiliate_network": ["in", active_networks],
+            }
+            if resolved_cat:
+                aff_filters["category"] = resolved_cat
 
+            aff_rows = frappe.get_all(
+                "Affiliate Product",
+                filters=aff_filters,
+                or_filters=or_filters,
+                fields=[
+                    "name",
+                    "slug",
+                    "product_name",
+                    "category",
+                    "image",
+                    "display_price",
+                    "currency",
+                    "marketplace",
+                    "creation",
+                    "modified",
+                ],
+                ignore_permissions=True,
+            )
+            for row in aff_rows:
+                card = _serialize_affiliate_card(row)
+                ts = str(row.get("modified") if normalized_sort == "popular" else row.get("creation") or "")
+                price_dec = (
+                    Decimal(str(row["display_price"]))
+                    if row.get("display_price") is not None
+                    else Decimal("0")
+                )
+                merged.append((card, ts, price_dec))
+
+    # 2. Dropshipping Products
+    if normalized_sales_type in (None, "DROPSHIP") and frappe.db.table_exists("Dropshipping Product"):
+        ds_filters: dict[str, Any] = {"status": "Published"}
+        if resolved_cat:
+            ds_filters["category"] = resolved_cat
+
+        ds_rows = frappe.get_all(
+            "Dropshipping Product",
+            filters=ds_filters,
+            or_filters=or_filters,
+            fields=[
+                "name",
+                "slug",
+                "product_name",
+                "category",
+                "image",
+                "selling_price",
+                "currency",
+                "supplier_stock",
+                "lead_time_days",
+                "creation",
+                "modified",
+            ],
+            ignore_permissions=True,
+        )
+        for row in ds_rows:
+            card = _serialize_dropship_card(row)
+            ts = str(row.get("modified") if normalized_sort == "popular" else row.get("creation") or "")
+            price_dec = Decimal(str(row.get("selling_price") or 0))
+            merged.append((card, ts, price_dec))
+
+    reverse_sort = normalized_sort in ("newest", "popular")
+    merged.sort(key=lambda e: _sort_key_for_merged(e, normalized_sort), reverse=reverse_sort)
+
+    total = len(merged)
     start = (page_num - 1) * size_num
-    rows = frappe.get_all(
-        "Affiliate Product",
-        filters=filters,
-        or_filters=or_filters,
-        fields=[
-            "name",
-            "slug",
-            "product_name",
-            "category",
-            "image",
-            "display_price",
-            "currency",
-            "marketplace",
-        ],
-        order_by=order_map[normalized_sort],
-        start=start,
-        limit=size_num,
-        ignore_permissions=True,
-    )
+    items = [entry[0] for entry in merged[start : start + size_num]]
 
-    items = [_serialize_catalog_card(row) for row in rows]
     data = {"items": items}
     assert_no_banned_fields(data)
 
@@ -297,10 +370,7 @@ def list_public_catalog(
 
 
 def get_public_product_by_slug(slug: str) -> dict[str, Any]:
-    """Return full public record for a single Published affiliate product.
-
-    Never reveals raw `affiliate_url`, commission fields, or unpublished products.
-    """
+    """Return full public record for a single Published affiliate or dropship product."""
     cleaned = (slug or "").strip().lower()
     if not cleaned or not SLUG_PATTERN.match(cleaned):
         raise AcomApiError(
@@ -310,107 +380,169 @@ def get_public_product_by_slug(slug: str) -> dict[str, Any]:
             details={"fields": ["slug"]},
         )
 
+    # 1. Try Affiliate Product (Published + Active network)
     active_networks = _active_network_names()
-    if not active_networks:
-        raise AcomApiError("NOT_FOUND", "Product not found.", status_code=404)
+    if active_networks:
+        aff_rows = frappe.get_all(
+            "Affiliate Product",
+            filters={
+                "slug": cleaned,
+                "status": "Published",
+                "affiliate_network": ["in", active_networks],
+            },
+            fields=[
+                "name",
+                "slug",
+                "product_name",
+                "product_sku",
+                "category",
+                "marketplace",
+                "display_price",
+                "currency",
+                "image",
+                "short_description",
+                "long_description",
+                "seo_title",
+                "seo_description",
+                "disclosure_required",
+            ],
+            limit=1,
+            ignore_permissions=True,
+        )
+        if aff_rows:
+            row = aff_rows[0]
+            highlights = frappe.get_all(
+                "Product Highlight",
+                filters={"parent": row["name"], "parenttype": "Affiliate Product"},
+                fields=["parentfield", "text", "sort_order"],
+                order_by="sort_order asc, idx asc",
+                ignore_permissions=True,
+            )
+            pros = [h["text"] for h in highlights if h["parentfield"] == "pros"]
+            cons = [h["text"] for h in highlights if h["parentfield"] == "cons"]
 
-    rows = frappe.get_all(
-        "Affiliate Product",
-        filters={
-            "slug": cleaned,
-            "status": "Published",
-            "affiliate_network": ["in", active_networks],
-        },
-        fields=[
-            "name",
-            "slug",
-            "product_name",
-            "product_sku",
-            "category",
-            "marketplace",
-            "display_price",
-            "currency",
-            "image",
-            "short_description",
-            "long_description",
-            "seo_title",
-            "seo_description",
-            "disclosure_required",
-        ],
-        limit=1,
-        ignore_permissions=True,
-    )
-    if not rows:
-        raise AcomApiError("NOT_FOUND", "Product not found.", status_code=404)
+            category_name = row.get("category") or ""
+            product: dict[str, Any] = {
+                "id": row["name"],
+                "slug": row["slug"],
+                "title": row["product_name"],
+                "product_sku": row["product_sku"],
+                "sales_type": "AFFILIATE",
+                "category": {
+                    "slug": normalize_slug(category_name),
+                    "name": category_name,
+                },
+                "marketplace": row["marketplace"],
+                "cta_label": "View Deal",
+                "disclosure_required": bool(row.get("disclosure_required", 1)),
+                "affiliate_disclosure": _get_disclosure_text(),
+                "view_deal_url": "/api/affiliate/click",
+                "pros": pros,
+                "cons": cons,
+            }
+            if row.get("image"):
+                product["image_url"] = row["image"]
+            if row.get("display_price") is not None:
+                product["display_price"] = format_money(row["display_price"], row.get("currency") or "INR")
+            if row.get("short_description"):
+                product["short_description"] = row["short_description"]
+            if row.get("long_description"):
+                product["long_description"] = row["long_description"]
+            if row.get("seo_title"):
+                product["seo_title"] = row["seo_title"]
+            if row.get("seo_description"):
+                product["seo_description"] = row["seo_description"]
 
-    row = rows[0]
-    highlights = frappe.get_all(
-        "Product Highlight",
-        filters={"parent": row["name"], "parenttype": "Affiliate Product"},
-        fields=["parentfield", "text", "sort_order"],
-        order_by="sort_order asc, idx asc",
-        ignore_permissions=True,
-    )
-    pros = [h["text"] for h in highlights if h["parentfield"] == "pros"]
-    cons = [h["text"] for h in highlights if h["parentfield"] == "cons"]
+            assert_no_banned_fields(product)
+            return product
 
-    category_name = row.get("category") or ""
-    product: dict[str, Any] = {
-        "id": row["name"],
-        "slug": row["slug"],
-        "title": row["product_name"],
-        "product_sku": row["product_sku"],
-        "sales_type": "AFFILIATE",
-        "category": {
-            "slug": normalize_slug(category_name),
-            "name": category_name,
-        },
-        "marketplace": row["marketplace"],
-        "cta_label": "View Deal",
-        "disclosure_required": bool(row.get("disclosure_required", 1)),
-        "affiliate_disclosure": _get_disclosure_text(),
-        # Server-side redirector workflow; raw affiliate_url is NEVER returned here.
-        "view_deal_url": "/api/affiliate/click",
-        "pros": pros,
-        "cons": cons,
-    }
-    if row.get("image"):
-        product["image_url"] = row["image"]
-    if row.get("display_price") is not None:
-        product["display_price"] = format_money(row["display_price"], row.get("currency") or "INR")
-    if row.get("short_description"):
-        product["short_description"] = row["short_description"]
-    if row.get("long_description"):
-        product["long_description"] = row["long_description"]
-    if row.get("seo_title"):
-        product["seo_title"] = row["seo_title"]
-    if row.get("seo_description"):
-        product["seo_description"] = row["seo_description"]
+    # 2. Try Dropshipping Product (Published only; zero supplier cost/identity/raw stock leaked!)
+    if frappe.db.table_exists("Dropshipping Product"):
+        ds_rows = frappe.get_all(
+            "Dropshipping Product",
+            filters={"slug": cleaned, "status": "Published"},
+            fields=[
+                "name",
+                "slug",
+                "product_name",
+                "category",
+                "selling_price",
+                "currency",
+                "supplier_stock",
+                "lead_time_days",
+                "hsn_code",
+                "return_policy_summary",
+                "image",
+                "short_description",
+            ],
+            limit=1,
+            ignore_permissions=True,
+        )
+        if ds_rows:
+            row = ds_rows[0]
+            in_stock, band = _quantity_band(row.get("supplier_stock"))
+            category_name = row.get("category") or ""
+            ds_product: dict[str, Any] = {
+                "id": row["name"],
+                "slug": row["slug"],
+                "title": row["product_name"],
+                "sales_type": "DROPSHIP",
+                "category": {
+                    "slug": normalize_slug(category_name),
+                    "name": category_name,
+                },
+                "price": format_money(row["selling_price"], row.get("currency") or "INR"),
+                "availability": {
+                    "in_stock": in_stock,
+                    "quantity_band": band,
+                    "ships_in_days": int(row.get("lead_time_days") or 3),
+                },
+                "hsn_category": row.get("hsn_code") or "",
+                "return_policy_summary": row.get("return_policy_summary") or "7-day replacement on damage",
+                "cta_label": "Add to Cart",
+            }
+            if row.get("image"):
+                ds_product["image_url"] = row["image"]
+            if row.get("short_description"):
+                ds_product["short_description"] = row["short_description"]
 
-    assert_no_banned_fields(product)
-    return product
+            assert_no_banned_fields(ds_product)
+            return ds_product
+
+    raise AcomApiError("NOT_FOUND", "Product not found.", status_code=404)
 
 
 def list_public_categories() -> dict[str, Any]:
-    """Return flat category list with published product counts (API_CONTRACTS.md §1)."""
-    active_networks = _active_network_names()
-    if not active_networks:
-        return {"categories": []}
-
-    rows = frappe.get_all(
-        "Affiliate Product",
-        filters={
-            "status": "Published",
-            "affiliate_network": ["in", active_networks],
-        },
-        fields=["category"],
-        ignore_permissions=True,
-    )
+    """Return flat category list with published product counts across AFFILIATE + DROPSHIP."""
     counts: dict[str, int] = {}
-    for row in rows:
-        cat = row.get("category")
-        if cat:
-            counts[cat] = counts.get(cat, 0) + 1
+
+    active_networks = _active_network_names()
+    if active_networks:
+        aff_rows = frappe.get_all(
+            "Affiliate Product",
+            filters={
+                "status": "Published",
+                "affiliate_network": ["in", active_networks],
+            },
+            fields=["category"],
+            ignore_permissions=True,
+        )
+        for row in aff_rows:
+            cat = row.get("category")
+            if cat:
+                counts[cat] = counts.get(cat, 0) + 1
+
+    if frappe.db.table_exists("Dropshipping Product"):
+        ds_rows = frappe.get_all(
+            "Dropshipping Product",
+            filters={"status": "Published"},
+            fields=["category"],
+            ignore_permissions=True,
+        )
+        for row in ds_rows:
+            cat = row.get("category")
+            if cat:
+                counts[cat] = counts.get(cat, 0) + 1
 
     if not counts:
         return {"categories": []}

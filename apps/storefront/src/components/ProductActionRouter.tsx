@@ -1,6 +1,6 @@
 import type { ProductDetail } from "@/types/catalog";
 import { AffiliateActionCta } from "./AffiliateActionCta";
-import { DropshipActionPlaceholder } from "./DropshipActionPlaceholder";
+import { DropshipAction } from "./DropshipAction";
 
 type ProductActionRouterProps = {
   product: ProductDetail;
@@ -21,5 +21,5 @@ export function ProductActionRouter({ product }: ProductActionRouterProps) {
     );
   }
 
-  return <DropshipActionPlaceholder product={product} />;
+  return <DropshipAction product={product} />;
 }

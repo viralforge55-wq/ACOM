@@ -17,3 +17,7 @@ required_apps = ["frappe", "erpnext"]
 before_install = "acom_core.setup.install.ensure_roles"
 after_install = "acom_core.setup.install.after_install"
 after_migrate = ["acom_core.setup.install.ensure_roles"]
+
+scheduler_events = {
+    "cron": {"* * * * *": ["acom_core.integration_management.tasks.retry_payment_events"]}
+}

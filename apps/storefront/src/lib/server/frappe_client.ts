@@ -33,6 +33,9 @@ type FrappeCallOptions = {
   body?: Record<string, unknown>;
   userAgent?: string | null;
   correlationId?: string;
+  sessionId?: string;
+  csrfToken?: string;
+  idempotencyKey?: string;
 };
 
 type RawHttpResponse = {
@@ -41,7 +44,7 @@ type RawHttpResponse = {
   body: string;
 };
 
-function performNodeHttpRequest(
+export function performNodeHttpRequest(
   targetUrl: URL,
   method: "GET" | "POST",
   headers: Record<string, string>,
@@ -119,6 +122,9 @@ export async function callFrappeMethod<T, M extends ApiMeta = ApiMeta>(
   if (options.userAgent) {
     headers["User-Agent"] = options.userAgent;
   }
+  if (options.sessionId) headers.Cookie = `sid=${options.sessionId}`;
+  if (options.csrfToken) headers["X-Frappe-CSRF-Token"] = options.csrfToken;
+  if (options.idempotencyKey) headers["Idempotency-Key"] = options.idempotencyKey;
   if (options.method === "POST") {
     bodyStr = JSON.stringify(options.body ?? {});
     headers["Content-Type"] = "application/json";

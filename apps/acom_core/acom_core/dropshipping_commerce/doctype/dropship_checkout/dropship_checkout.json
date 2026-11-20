@@ -1,0 +1,387 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-11-20 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "identity_section",
+  "naming_series",
+  "idempotency_key",
+  "request_hash",
+  "status",
+  "column_break_payment",
+  "payment_provider",
+  "payment_method",
+  "gateway_order_ref",
+  "gateway_payment_id",
+  "paid_at",
+  "customer_section",
+  "customer_user",
+  "customer_name",
+  "customer_email",
+  "customer_phone",
+  "column_break_address",
+  "shipping_line1",
+  "shipping_city",
+  "shipping_state",
+  "shipping_pincode",
+  "shipping_country",
+  "items_section",
+  "items",
+  "totals_section",
+  "currency",
+  "subtotal",
+  "shipping_total",
+  "tax_total",
+  "grand_total",
+  "erp_section",
+  "erp_sync_status",
+  "sales_order",
+  "purchase_order",
+  "column_break_fulfillment",
+  "carrier",
+  "tracking_number",
+  "tracking_url",
+  "estimated_delivery",
+  "refund_section",
+  "refund_status",
+  "refund_amount",
+  "refund_reason",
+  "refund_approved_by",
+  "refund_gateway_ref"
+ ],
+ "fields": [
+  {
+   "fieldname": "identity_section",
+   "fieldtype": "Section Break",
+   "label": "Checkout & Idempotency"
+  },
+  {
+   "default": "CHK-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "CHK-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "description": "DB unique index enforcing checkout idempotency (gate G5).",
+   "fieldname": "idempotency_key",
+   "fieldtype": "Data",
+   "label": "Idempotency Key",
+   "read_only": 1,
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "request_hash",
+   "fieldtype": "Data",
+   "label": "Request Hash",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "PendingPayment",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "PendingPayment\nPaid\nProcessing\nAwaitingSupplier\nShipped\nDelivered\nCancelled\nRefundRequested\nRefunded",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_payment",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "test_gateway",
+   "fieldname": "payment_provider",
+   "fieldtype": "Data",
+   "label": "Payment Provider",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "gateway",
+   "fieldname": "payment_method",
+   "fieldtype": "Data",
+   "label": "Payment Method",
+   "reqd": 1
+  },
+  {
+   "fieldname": "gateway_order_ref",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Gateway Order Ref",
+   "read_only": 1,
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "gateway_payment_id",
+   "fieldtype": "Data",
+   "label": "Gateway Payment ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "paid_at",
+   "fieldtype": "Datetime",
+   "label": "Paid At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_section",
+   "fieldtype": "Section Break",
+   "label": "Customer & Shipping"
+  },
+  {
+   "description": "Authenticated Frappe user owning this checkout (enforces A3 order scoping).",
+   "fieldname": "customer_user",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer User",
+   "options": "User",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer_email",
+   "fieldtype": "Data",
+   "label": "Customer Email",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer_phone",
+   "fieldtype": "Data",
+   "label": "Customer Phone",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_address",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shipping_line1",
+   "fieldtype": "Data",
+   "label": "Address Line 1",
+   "reqd": 1
+  },
+  {
+   "fieldname": "shipping_city",
+   "fieldtype": "Data",
+   "label": "City",
+   "reqd": 1
+  },
+  {
+   "fieldname": "shipping_state",
+   "fieldtype": "Data",
+   "label": "State",
+   "reqd": 1
+  },
+  {
+   "fieldname": "shipping_pincode",
+   "fieldtype": "Data",
+   "label": "Pincode",
+   "reqd": 1
+  },
+  {
+   "default": "IN",
+   "fieldname": "shipping_country",
+   "fieldtype": "Data",
+   "label": "Country",
+   "reqd": 1
+  },
+  {
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Line Items (Server-Priced)"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Dropship Checkout Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "totals_section",
+   "fieldtype": "Section Break",
+   "label": "Totals (Server-Computed)"
+  },
+  {
+   "default": "INR",
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "subtotal",
+   "fieldtype": "Currency",
+   "label": "Subtotal",
+   "options": "currency",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "shipping_total",
+   "fieldtype": "Currency",
+   "label": "Shipping",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "tax_total",
+   "fieldtype": "Currency",
+   "label": "Tax",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Grand Total",
+   "options": "currency",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "erp_section",
+   "fieldtype": "Section Break",
+   "label": "ERPNext Execution & Fulfillment"
+  },
+  {
+   "default": "NotStarted",
+   "fieldname": "erp_sync_status",
+   "fieldtype": "Select",
+   "label": "ERP Sync Status",
+   "options": "NotStarted\nSynced\nERP_PENDING",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Sales Order",
+   "options": "Sales Order",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "label": "Purchase Order",
+   "options": "Purchase Order",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_fulfillment",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "carrier",
+   "fieldtype": "Data",
+   "label": "Carrier"
+  },
+  {
+   "fieldname": "tracking_number",
+   "fieldtype": "Data",
+   "label": "Tracking Number"
+  },
+  {
+   "fieldname": "tracking_url",
+   "fieldtype": "Data",
+   "label": "Tracking URL"
+  },
+  {
+   "fieldname": "estimated_delivery",
+   "fieldtype": "Date",
+   "label": "Estimated Delivery"
+  },
+  {
+   "fieldname": "refund_section",
+   "fieldtype": "Section Break",
+   "label": "Cancellation & Refund Approval"
+  },
+  {
+   "default": "None",
+   "fieldname": "refund_status",
+   "fieldtype": "Select",
+   "label": "Refund Status",
+   "options": "None\nRequested\nApproved\nRejected\nProcessed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "refund_amount",
+   "fieldtype": "Currency",
+   "label": "Refund Amount",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "refund_reason",
+   "fieldtype": "Small Text",
+   "label": "Refund Reason"
+  },
+  {
+   "fieldname": "refund_approved_by",
+   "fieldtype": "Link",
+   "label": "Refund Approved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "refund_gateway_ref",
+   "fieldtype": "Data",
+   "label": "Refund Gateway Ref",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-20 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Dropshipping Commerce",
+ "name": "Dropship Checkout",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Finance",
+   "write": 1
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager",
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

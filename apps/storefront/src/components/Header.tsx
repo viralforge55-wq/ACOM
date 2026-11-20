@@ -15,6 +15,7 @@ export function Header() {
         </Link>
 
         <nav aria-label="Primary" className="flex items-center gap-6 text-sm text-muted">
+          <Link href="/cart" className="hover:text-ink">Cart</Link>
           <Link href="/" className="transition-colors hover:text-ink">
             Discover
           </Link>

@@ -1,0 +1,179 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-11-20 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "supplier",
+  "period_start",
+  "period_end",
+  "period_key",
+  "column_break_orders",
+  "orders_received",
+  "orders_fulfilled",
+  "orders_cancelled",
+  "orders_returned",
+  "metrics_section",
+  "avg_dispatch_hours",
+  "quality_issues",
+  "column_break_scores",
+  "cancellation_rate",
+  "return_rate",
+  "reliability_score",
+  "notes"
+ ],
+ "fields": [
+  {
+   "default": "SPERF-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "SPERF-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier",
+   "options": "Supplier",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "period_start",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Period Start",
+   "reqd": 1
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Period End",
+   "reqd": 1
+  },
+  {
+   "fieldname": "period_key",
+   "fieldtype": "Data",
+   "label": "Period Key",
+   "read_only": 1,
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_orders",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "orders_received",
+   "fieldtype": "Int",
+   "label": "Orders Received",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "orders_fulfilled",
+   "fieldtype": "Int",
+   "label": "Orders Fulfilled",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "orders_cancelled",
+   "fieldtype": "Int",
+   "label": "Orders Cancelled",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "orders_returned",
+   "fieldtype": "Int",
+   "label": "Orders Returned",
+   "reqd": 1
+  },
+  {
+   "fieldname": "metrics_section",
+   "fieldtype": "Section Break",
+   "label": "Reliability Metrics"
+  },
+  {
+   "fieldname": "avg_dispatch_hours",
+   "fieldtype": "Float",
+   "label": "Avg Dispatch Hours"
+  },
+  {
+   "default": "0",
+   "fieldname": "quality_issues",
+   "fieldtype": "Int",
+   "label": "Quality Issues"
+  },
+  {
+   "fieldname": "column_break_scores",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cancellation_rate",
+   "fieldtype": "Percent",
+   "label": "Cancellation Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "return_rate",
+   "fieldtype": "Percent",
+   "label": "Return Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reliability_score",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Reliability Score",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-20 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Supplier Intelligence",
+ "name": "Supplier Performance",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Analyst"
+  }
+ ],
+ "sort_field": "period_end",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

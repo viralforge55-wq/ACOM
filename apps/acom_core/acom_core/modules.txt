@@ -1,3 +1,6 @@
 ACOM Core
 Affiliate Commerce
 Product Intelligence
+Dropshipping Commerce
+Supplier Intelligence
+Integration Management

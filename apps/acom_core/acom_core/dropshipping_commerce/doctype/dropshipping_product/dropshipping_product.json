@@ -1,0 +1,321 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-11-20 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "identity_section",
+  "naming_series",
+  "product_name",
+  "slug",
+  "category",
+  "column_break_erp",
+  "erpnext_item",
+  "supplier",
+  "supplier_sku",
+  "pricing_section",
+  "currency",
+  "price_list",
+  "selling_price",
+  "supplier_cost",
+  "shipping_cost",
+  "packaging_cost",
+  "column_break_margins",
+  "payment_fee_percent",
+  "expected_return_rate",
+  "contribution_profit",
+  "contribution_margin_pct",
+  "tax_and_stock_section",
+  "hsn_code",
+  "gst_rate",
+  "column_break_stock",
+  "supplier_stock",
+  "last_stock_sync",
+  "lead_time_days",
+  "publishing_section",
+  "status",
+  "content_review_status",
+  "column_break_content",
+  "image",
+  "short_description",
+  "return_policy_summary"
+ ],
+ "fields": [
+  {
+   "fieldname": "identity_section",
+   "fieldtype": "Section Break",
+   "label": "Identity"
+  },
+  {
+   "default": "DPROD-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "DPROD-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Product Name",
+   "length": 140,
+   "reqd": 1
+  },
+  {
+   "fieldname": "slug",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Slug",
+   "reqd": 1,
+   "search_index": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Item Group",
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_erp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Selling entity in ERPNext. Item Code != Supplier SKU.",
+   "fieldname": "erpnext_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "ERPNext Item",
+   "options": "Item",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "description": "NEVER exposed publicly.",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier",
+   "options": "Supplier",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "description": "Supplier's own SKU. NEVER exposed publicly.",
+   "fieldname": "supplier_sku",
+   "fieldtype": "Data",
+   "label": "Supplier SKU",
+   "reqd": 1
+  },
+  {
+   "fieldname": "pricing_section",
+   "fieldtype": "Section Break",
+   "label": "Pricing & Contribution Margin (Private Costs)"
+  },
+  {
+   "default": "INR",
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "default": "Standard Selling",
+   "fieldname": "price_list",
+   "fieldtype": "Link",
+   "label": "Price List",
+   "options": "Price List",
+   "reqd": 1
+  },
+  {
+   "description": "Must match active ERPNext Price List rate at publish (0.00 tolerance).",
+   "fieldname": "selling_price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Selling Price",
+   "options": "currency",
+   "reqd": 1
+  },
+  {
+   "description": "NEVER exposed on any public API (gate G3).",
+   "fieldname": "supplier_cost",
+   "fieldtype": "Currency",
+   "label": "Supplier Cost",
+   "options": "currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "shipping_cost",
+   "fieldtype": "Currency",
+   "label": "Shipping Cost",
+   "options": "currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "packaging_cost",
+   "fieldtype": "Currency",
+   "label": "Packaging Cost",
+   "options": "currency"
+  },
+  {
+   "fieldname": "column_break_margins",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_fee_percent",
+   "fieldtype": "Percent",
+   "label": "Payment Fee Percent"
+  },
+  {
+   "default": "0",
+   "fieldname": "expected_return_rate",
+   "fieldtype": "Percent",
+   "label": "Expected Return Rate"
+  },
+  {
+   "description": "Computed on save (GST excluded). Negative margin blocks publish.",
+   "fieldname": "contribution_profit",
+   "fieldtype": "Currency",
+   "label": "Contribution Profit",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contribution_margin_pct",
+   "fieldtype": "Percent",
+   "label": "Contribution Margin %",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax_and_stock_section",
+   "fieldtype": "Section Break",
+   "label": "India GST & Supplier Stock"
+  },
+  {
+   "fieldname": "hsn_code",
+   "fieldtype": "Data",
+   "label": "HSN Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "gst_rate",
+   "fieldtype": "Percent",
+   "label": "GST Rate",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_stock",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Last known raw supplier stock (never exposed directly; storefront receives coarse band).",
+   "fieldname": "supplier_stock",
+   "fieldtype": "Int",
+   "label": "Supplier Stock"
+  },
+  {
+   "fieldname": "last_stock_sync",
+   "fieldtype": "Datetime",
+   "label": "Last Stock Sync"
+  },
+  {
+   "default": "3",
+   "fieldname": "lead_time_days",
+   "fieldtype": "Int",
+   "label": "Lead Time (Days)"
+  },
+  {
+   "fieldname": "publishing_section",
+   "fieldtype": "Section Break",
+   "label": "Publishing & Storefront Copy"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nPending Approval\nPublished\nOut of Stock\nPaused\nRejected",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "default": "Not Reviewed",
+   "fieldname": "content_review_status",
+   "fieldtype": "Select",
+   "label": "Content Review Status",
+   "options": "Not Reviewed\nApproved\nNeeds Changes"
+  },
+  {
+   "fieldname": "column_break_content",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "short_description",
+   "fieldtype": "Small Text",
+   "label": "Short Description"
+  },
+  {
+   "default": "7-day replacement on damage",
+   "fieldname": "return_policy_summary",
+   "fieldtype": "Data",
+   "label": "Return Policy Summary"
+  }
+ ],
+ "image_field": "image",
+ "links": [],
+ "modified": "2026-11-20 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Dropshipping Commerce",
+ "name": "Dropshipping Product",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "ACOM Editor",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Analyst"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "product_name",
+ "track_changes": 1
+}

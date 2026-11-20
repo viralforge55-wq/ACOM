@@ -9,6 +9,11 @@
 # scripts\check-env.ps1.
 # ─────────────────────────────────────────────────────────────
 
+networks:
+  default:
+    name: acom_default
+    external: true
+
 services:
   db:
     deploy:
@@ -74,6 +79,8 @@ services:
           memory: 256M
 
   frontend:
+    ports: !override
+      - "127.0.0.1:8080:8080"
     deploy:
       resources:
         limits:

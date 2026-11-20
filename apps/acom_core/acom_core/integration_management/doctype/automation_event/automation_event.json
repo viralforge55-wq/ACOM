@@ -1,0 +1,159 @@
+{
+ "actions": [],
+ "autoname": "field:event_id",
+ "creation": "2026-11-20 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "event_id",
+  "event_type",
+  "source",
+  "idempotency_key",
+  "column_break_agg",
+  "aggregate_doctype",
+  "aggregate_name",
+  "processing_status",
+  "retry_count",
+  "timing_section",
+  "created_at",
+  "processed_at",
+  "next_attempt_at",
+  "payload_section",
+  "payload",
+  "error_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "event_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Event ID",
+   "read_only": 1,
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "event_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Event Type",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Source",
+   "options": "Storefront\nERPNext\nPaymentGateway\nAffiliateImport\nScheduler\nAgent",
+   "reqd": 1
+  },
+  {
+   "description": "DB-enforced unique index preventing duplicate event processing.",
+   "fieldname": "idempotency_key",
+   "fieldtype": "Data",
+   "label": "Idempotency Key",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_agg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "aggregate_doctype",
+   "fieldtype": "Data",
+   "label": "Aggregate DocType"
+  },
+  {
+   "fieldname": "aggregate_name",
+   "fieldtype": "Data",
+   "label": "Aggregate Name",
+   "search_index": 1
+  },
+  {
+   "default": "Received",
+   "fieldname": "processing_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Processing Status",
+   "options": "Received\nProcessing\nCompleted\nFailed\nDead Letter",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "retry_count",
+   "fieldtype": "Int",
+   "label": "Retry Count",
+   "reqd": 1
+  },
+  {
+   "fieldname": "timing_section",
+   "fieldtype": "Section Break",
+   "label": "Timestamps"
+  },
+  {
+   "fieldname": "created_at",
+   "fieldtype": "Datetime",
+   "label": "Created At",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "processed_at",
+   "fieldtype": "Datetime",
+   "label": "Processed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "next_attempt_at",
+   "fieldtype": "Datetime",
+   "label": "Next Attempt At"
+  },
+  {
+   "fieldname": "payload_section",
+   "fieldtype": "Section Break",
+   "label": "Payload & Diagnostics"
+  },
+  {
+   "description": "NEVER exposed on any public API (DATA_DICTIONARY §13).",
+   "fieldname": "payload",
+   "fieldtype": "JSON",
+   "label": "Payload",
+   "reqd": 1
+  },
+  {
+   "fieldname": "error_details",
+   "fieldtype": "Small Text",
+   "label": "Error Details"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-20 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Integration Management",
+ "name": "Automation Event",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager"
+  }
+ ],
+ "sort_field": "created_at",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0
+}
