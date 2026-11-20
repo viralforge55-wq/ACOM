@@ -1,0 +1,84 @@
+# ─────────────────────────────────────────────────────────────
+# PROJECT ACOM — repository exclusions
+# Rule: no secrets, no customer data, no database dumps, no build output.
+# ─────────────────────────────────────────────────────────────
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+infrastructure/local-config/*
+!infrastructure/local-config/.gitkeep
+!infrastructure/local-config/*.example
+
+# Frappe / ERPNext
+apps/*/node_modules/
+sites/
+sites/assets/
+**/site_config.json
+**/common_site_config.json
+**/*.sql.gz
+**/*.dump
+**/backups/
+**/private/files/
+**/public/files/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# Docker
+**/docker-compose.override.local.yml
+**/.docker-data/
+volumes/
+
+# Ollama
+models/
+*.gguf
+
+# Node-RED (retained for future use — ADR-0002)
+automation/node-red/data/
+automation/node-red/.config.*
+
+# Logs & runtime
+*.log
+logs/
+tmp/
+temp/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+!.vscode/extensions.json
+.idea/
+
+# Test artifacts
+tests/**/screenshots/
+tests/**/traces/
+playwright-report/
+test-results/
