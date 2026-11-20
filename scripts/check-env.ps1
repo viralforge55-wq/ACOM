@@ -12,6 +12,10 @@
 
 $ErrorActionPreference = 'Continue'
 
+# wsl.exe emits UTF-16LE by default, which PowerShell renders as spaced-out
+# characters. WSL_UTF8 forces UTF-8 output.
+$env:WSL_UTF8 = '1'
+
 $script:failures = 0
 $script:warnings = 0
 
@@ -78,7 +82,9 @@ $wslExe = Get-Command wsl.exe -ErrorAction SilentlyContinue
 if (-not $wslExe) {
     Write-Result 'wsl.exe' 'FAIL' 'not found'
 } else {
-    $distros = (& wsl.exe --list --quiet 2>$null) -split "`r?`n" | Where-Object { $_.Trim() }
+    $distros = (& wsl.exe --list --quiet 2>$null) -split "`r?`n" |
+        ForEach-Object { ($_ -replace "`0", '').Trim() } |
+        Where-Object { $_ -and $_ -notmatch '^\s*$' }
     if ($distros) {
         Write-Result 'Installed distros' 'PASS' ($distros -join ', ')
     } else {
