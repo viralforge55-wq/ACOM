@@ -1,0 +1,261 @@
+{
+ "actions": [],
+ "autoname": "autoname",
+ "creation": "2026-11-20 15:30:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "task_id",
+  "task_type",
+  "agent_id",
+  "model",
+  "column_break_meta",
+  "status",
+  "correlation_id",
+  "retry_count",
+  "max_retries",
+  "input_section",
+  "input_reference",
+  "input_hash",
+  "input_payload",
+  "timing_section",
+  "created_at",
+  "started_at",
+  "column_break_timing",
+  "completed_at",
+  "duration_ms",
+  "output_section",
+  "output_reference",
+  "output_validated",
+  "output_payload",
+  "diagnostics_section",
+  "error_code",
+  "error_details",
+  "column_break_tokens",
+  "prompt_tokens",
+  "completion_tokens"
+ ],
+ "fields": [
+  {
+   "fieldname": "task_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Task ID",
+   "read_only": 1,
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "task_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Task Type",
+   "options": "ProductResearch\nContentGeneration\nSupplierAnalysis\nClassification\nReport\nReconciliation",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "agent_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Agent ID",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_meta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Queued",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Queued\nRunning\nSucceeded\nFailed\nRejected\nTimed Out",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "correlation_id",
+   "fieldtype": "Data",
+   "label": "Correlation ID",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "retry_count",
+   "fieldtype": "Int",
+   "label": "Retry Count",
+   "reqd": 1
+  },
+  {
+   "default": "2",
+   "fieldname": "max_retries",
+   "fieldtype": "Int",
+   "label": "Max Retries",
+   "reqd": 1
+  },
+  {
+   "fieldname": "input_section",
+   "fieldtype": "Section Break",
+   "label": "Input Definition"
+  },
+  {
+   "fieldname": "input_reference",
+   "fieldtype": "Data",
+   "label": "Input Reference"
+  },
+  {
+   "description": "SHA-256 of canonical input data for deduplication (DATA_DICTIONARY §8).",
+   "fieldname": "input_hash",
+   "fieldtype": "Data",
+   "label": "Input Hash",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "input_payload",
+   "fieldtype": "JSON",
+   "label": "Input Payload"
+  },
+  {
+   "fieldname": "timing_section",
+   "fieldtype": "Section Break",
+   "label": "Timestamps & Performance"
+  },
+  {
+   "fieldname": "created_at",
+   "fieldtype": "Datetime",
+   "label": "Created At",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_timing",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "duration_ms",
+   "fieldtype": "Int",
+   "label": "Duration (ms)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "output_section",
+   "fieldtype": "Section Break",
+   "label": "Output & Validation"
+  },
+  {
+   "fieldname": "output_reference",
+   "fieldtype": "Data",
+   "label": "Output Reference"
+  },
+  {
+   "default": "0",
+   "fieldname": "output_validated",
+   "fieldtype": "Check",
+   "label": "Output Validated"
+  },
+  {
+   "fieldname": "output_payload",
+   "fieldtype": "JSON",
+   "label": "Output Payload"
+  },
+  {
+   "fieldname": "diagnostics_section",
+   "fieldtype": "Section Break",
+   "label": "Diagnostics & Accounting"
+  },
+  {
+   "fieldname": "error_code",
+   "fieldtype": "Data",
+   "label": "Error Code"
+  },
+  {
+   "fieldname": "error_details",
+   "fieldtype": "Small Text",
+   "label": "Error Details"
+  },
+  {
+   "fieldname": "column_break_tokens",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "prompt_tokens",
+   "fieldtype": "Int",
+   "label": "Prompt Tokens"
+  },
+  {
+   "default": "0",
+   "fieldname": "completion_tokens",
+   "fieldtype": "Int",
+   "label": "Completion Tokens"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-20 15:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "AI Operations",
+ "name": "AI Task",
+ "naming_rule": "By script",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Editor",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Finance"
+  }
+ ],
+ "sort_field": "created_at",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0
+}

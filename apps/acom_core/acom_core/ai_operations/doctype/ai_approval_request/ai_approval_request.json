@@ -1,0 +1,208 @@
+{
+ "actions": [],
+ "autoname": "autoname",
+ "creation": "2026-11-20 15:30:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "request_id",
+  "action_type",
+  "approval_status",
+  "risk_level",
+  "column_break_rel",
+  "related_doctype",
+  "related_name",
+  "ai_task",
+  "recommendation_section",
+  "recommendation",
+  "rationale",
+  "financial_section",
+  "estimated_financial_impact",
+  "column_break_fin",
+  "expires_at",
+  "decision_section",
+  "approved_by",
+  "approval_timestamp",
+  "column_break_dec",
+  "decision_note"
+ ],
+ "fields": [
+  {
+   "fieldname": "request_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Request ID",
+   "read_only": 1,
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "action_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Action Type",
+   "options": "PublishProduct\nSubmitPurchaseOrder\nIssueRefund\nPriceChange\nSupplierOnboarding\nContentPublish",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "approval_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Approval Status",
+   "options": "Pending\nApproved\nRejected\nExpired",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "default": "Medium",
+   "fieldname": "risk_level",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Risk Level",
+   "options": "Low\nMedium\nHigh",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_rel",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "related_doctype",
+   "fieldtype": "Link",
+   "label": "Related DocType",
+   "options": "DocType",
+   "reqd": 1
+  },
+  {
+   "fieldname": "related_name",
+   "fieldtype": "Data",
+   "label": "Related Name",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "ai_task",
+   "fieldtype": "Link",
+   "label": "AI Task",
+   "options": "AI Task"
+  },
+  {
+   "fieldname": "recommendation_section",
+   "fieldtype": "Section Break",
+   "label": "Recommendation & Evidence"
+  },
+  {
+   "fieldname": "recommendation",
+   "fieldtype": "Long Text",
+   "label": "Recommendation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "rationale",
+   "fieldtype": "Long Text",
+   "label": "Rationale"
+  },
+  {
+   "fieldname": "financial_section",
+   "fieldtype": "Section Break",
+   "label": "Financial & Timing Impact"
+  },
+  {
+   "default": "0",
+   "description": "Signed currency amount in INR; outflows negative (DATA_DICTIONARY §9).",
+   "fieldname": "estimated_financial_impact",
+   "fieldtype": "Currency",
+   "label": "Estimated Financial Impact (INR)"
+  },
+  {
+   "fieldname": "column_break_fin",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Auto-expire after configured window (default 72h). Expired requests cannot be approved retroactively.",
+   "fieldname": "expires_at",
+   "fieldtype": "Datetime",
+   "label": "Expires At",
+   "reqd": 1
+  },
+  {
+   "fieldname": "decision_section",
+   "fieldtype": "Section Break",
+   "label": "Decision Audit"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Decided By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approval_timestamp",
+   "fieldtype": "Datetime",
+   "label": "Decision Timestamp",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_dec",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Mandatory on Rejection (DATA_DICTIONARY §9).",
+   "fieldname": "decision_note",
+   "fieldtype": "Small Text",
+   "label": "Decision Note"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-20 15:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "AI Operations",
+ "name": "AI Approval Request",
+ "naming_rule": "By script",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Editor",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Finance",
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

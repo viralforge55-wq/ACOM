@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProductHunterOutput",
+  "type": "object",
+  "properties": {
+    "product_name": { "type": "string", "minLength": 2, "maxLength": 150 },
+    "category": { "type": "string", "minLength": 2, "maxLength": 80 },
+    "supplier_name": { "type": "string", "minLength": 2, "maxLength": 100 },
+    "supplier_sku": { "type": "string", "minLength": 2, "maxLength": 100 },
+    "supplier_price": { "type": "string", "pattern": "^\\d+(\\.\\d{2})?$" },
+    "competitor_price": { "type": "string", "pattern": "^\\d+(\\.\\d{2})?$" },
+    "proposed_selling_price": { "type": "string", "pattern": "^\\d+(\\.\\d{2})?$" },
+    "estimated_shipping_cost": { "type": "string", "pattern": "^\\d+(\\.\\d{2})?$" },
+    "estimated_return_rate": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "target_customer": { "type": "string", "minLength": 3 },
+    "key_features": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["RECOMMENDED", "REJECTED", "NEEDS_REVIEW"]
+    },
+    "reasoning": { "type": "string", "minLength": 10 },
+    "margin_pct": { "type": "number" },
+    "product_score": { "type": "number" }
+  },
+  "required": [
+    "product_name",
+    "category",
+    "supplier_name",
+    "supplier_sku",
+    "supplier_price",
+    "competitor_price",
+    "proposed_selling_price",
+    "estimated_shipping_cost",
+    "estimated_return_rate",
+    "target_customer",
+    "key_features",
+    "verdict",
+    "reasoning"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ListingContentOutput",
+  "type": "object",
+  "properties": {
+    "title": { "type": "string", "minLength": 5, "maxLength": 150 },
+    "short_description": { "type": "string", "minLength": 10, "maxLength": 1000 },
+    "highlights": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 2,
+      "maxItems": 10
+    },
+    "pros": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "cons": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "seo_meta_title": { "type": "string", "minLength": 5, "maxLength": 70 },
+    "seo_meta_description": { "type": "string", "minLength": 10, "maxLength": 160 }
+  },
+  "required": [
+    "title",
+    "short_description",
+    "highlights",
+    "pros",
+    "cons",
+    "seo_meta_title",
+    "seo_meta_description"
+  ],
+  "additionalProperties": false
+}
