@@ -115,3 +115,6 @@ def calculate_contribution_profit(
         can_publish=profit >= Decimal("0.00"),
         currency=(currency or "INR").upper(),
     )
+
+
+compute_margin = calculate_contribution_profit

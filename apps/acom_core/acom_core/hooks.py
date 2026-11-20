@@ -19,5 +19,15 @@ after_install = "acom_core.setup.install.after_install"
 after_migrate = ["acom_core.setup.install.ensure_roles"]
 
 scheduler_events = {
-    "cron": {"* * * * *": ["acom_core.integration_management.tasks.retry_payment_events"]}
+    "cron": {
+        "* * * * *": [
+            "acom_core.integration_management.tasks.retry_payment_events",
+            "acom_core.integration_management.tasks.process_automation_retry_queue",
+        ],
+        "0 */6 * * *": [
+            "acom_core.integration_management.tasks.run_scheduled_supplier_monitor",
+            "acom_core.integration_management.tasks.run_scheduled_order_monitor",
+            "acom_core.integration_management.tasks.run_scheduled_reconciliation_monitor",
+        ],
+    }
 }
