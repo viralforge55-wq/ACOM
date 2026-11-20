@@ -1,0 +1,214 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-11-20 14:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "affiliate_network",
+  "report_date",
+  "source_format",
+  "file_name",
+  "column_break_meta",
+  "status",
+  "content_sha256",
+  "imported_at",
+  "imported_by",
+  "counts_section",
+  "total_rows",
+  "inserted_count",
+  "updated_count",
+  "column_break_counts",
+  "skipped_count",
+  "unmatched_count",
+  "error_count",
+  "errors_section",
+  "error_summary"
+ ],
+ "fields": [
+  {
+   "default": "ABATCH-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "ABATCH-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "affiliate_network",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Affiliate Network",
+   "options": "Affiliate Network",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "report_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Report Date",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "default": "CSV",
+   "fieldname": "source_format",
+   "fieldtype": "Select",
+   "label": "Source Format",
+   "options": "CSV\nJSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "file_name",
+   "fieldtype": "Data",
+   "label": "File Name"
+  },
+  {
+   "fieldname": "column_break_meta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Processing",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Processing\nCompleted\nFailed",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "content_sha256",
+   "fieldtype": "Data",
+   "label": "Content SHA-256",
+   "read_only": 1,
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "imported_at",
+   "fieldtype": "Datetime",
+   "label": "Imported At",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "imported_by",
+   "fieldtype": "Link",
+   "label": "Imported By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "counts_section",
+   "fieldtype": "Section Break",
+   "label": "Row Counts"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_rows",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Rows",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "inserted_count",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Inserted",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "updated_count",
+   "fieldtype": "Int",
+   "label": "Updated",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_counts",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "skipped_count",
+   "fieldtype": "Int",
+   "label": "Skipped (Duplicates)",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "unmatched_count",
+   "fieldtype": "Int",
+   "label": "Unmatched (Manual Review)",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "error_count",
+   "fieldtype": "Int",
+   "label": "Errors",
+   "read_only": 1
+  },
+  {
+   "fieldname": "errors_section",
+   "fieldtype": "Section Break",
+   "label": "Notes / Errors"
+  },
+  {
+   "fieldname": "error_summary",
+   "fieldtype": "Small Text",
+   "label": "Error Summary",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-20 14:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Affiliate Commerce",
+ "name": "Affiliate Import Batch",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 1,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 0,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Finance",
+   "write": 1
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager"
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Analyst"
+  }
+ ],
+ "sort_field": "imported_at",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

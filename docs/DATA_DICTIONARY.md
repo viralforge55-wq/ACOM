@@ -111,6 +111,18 @@ Imported from an authorised network report. The only source of affiliate revenue
 | `payment_reference` | Data |  | Network payout reference when `Paid` |
 | `matched_by` | Select |  | `SubId`, `ProductSku`, `Manual`, `Unmatched` |
 | `import_batch` | Link → `Affiliate Import Batch` | ✔ | Traceability back to the file |
+| `currency` | Link → `Currency` | ✔ | Default `INR` |
+| `campaign` | Link → `Affiliate Campaign` |  | Copied from matched click or product |
+| `dedupe_key` | Data | ✔ | Unique index: `{affiliate_network}::{network_conversion_id}` |
+| `needs_manual_review` | Check |  | Set when `matched_by = Unmatched` (orphan review queue) |
+| `raw_subid` / `raw_product_sku` | Data |  | Preserved when unmatched for manual reconciliation |
+| `reversed_conversion` / `reversal_reason` | Link / Small Text |  | Populated on `Reversed` rows (original row retained) |
+| `status_history` | Table → `Affiliate Conversion Status Log` |  | Immutable audit trail of status transitions |
+
+### 4.1 Supporting Import & Audit DocTypes
+
+- **`Affiliate Import Batch`** (`ABATCH-.YYYY.-.#####`): `affiliate_network` (Link), `report_date` (Date), `source_format` (`CSV` | `JSON`), `file_name` (Data), `content_sha256` (Data), `status` (`Processing` | `Completed` | `Failed`), `total_rows`, `inserted_count`, `updated_count`, `skipped_count`, `unmatched_count`, `error_count`, `error_summary`, `imported_at`, `imported_by`.
+- **`Affiliate Conversion Status Log`** (child table): `from_status`, `to_status`, `changed_at`, `changed_by`, `import_batch`, `note`.
 
 **Rules**
 

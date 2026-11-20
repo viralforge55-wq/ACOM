@@ -1,0 +1,292 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-11-20 14:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "identity_section",
+  "naming_series",
+  "affiliate_network",
+  "network_conversion_id",
+  "dedupe_key",
+  "external_order_id",
+  "column_break_dates",
+  "conversion_date",
+  "report_date",
+  "import_batch",
+  "attribution_section",
+  "affiliate_click",
+  "affiliate_product",
+  "campaign",
+  "column_break_matching",
+  "matched_by",
+  "needs_manual_review",
+  "raw_subid",
+  "raw_product_sku",
+  "commission_section",
+  "currency",
+  "order_value",
+  "commission_amount",
+  "column_break_status",
+  "commission_status",
+  "payment_reference",
+  "reversal_section",
+  "reversed_conversion",
+  "reversal_reason",
+  "audit_section",
+  "status_history"
+ ],
+ "fields": [
+  {
+   "fieldname": "identity_section",
+   "fieldtype": "Section Break",
+   "label": "Conversion Identity"
+  },
+  {
+   "default": "ACONV-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "ACONV-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "affiliate_network",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Affiliate Network",
+   "options": "Affiliate Network",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "description": "Unique with Affiliate Network — idempotency key from network report.",
+   "fieldname": "network_conversion_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Network Conversion ID",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "description": "Server-computed unique key: affiliate_network::network_conversion_id.",
+   "fieldname": "dedupe_key",
+   "fieldtype": "Data",
+   "label": "Dedupe Key",
+   "read_only": 1,
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "external_order_id",
+   "fieldtype": "Data",
+   "label": "External Order ID"
+  },
+  {
+   "fieldname": "column_break_dates",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "conversion_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Conversion Date",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "report_date",
+   "fieldtype": "Date",
+   "label": "Report Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "import_batch",
+   "fieldtype": "Link",
+   "label": "Import Batch",
+   "options": "Affiliate Import Batch",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "attribution_section",
+   "fieldtype": "Section Break",
+   "label": "Attribution"
+  },
+  {
+   "fieldname": "affiliate_click",
+   "fieldtype": "Link",
+   "label": "Affiliate Click",
+   "options": "Affiliate Click",
+   "search_index": 1
+  },
+  {
+   "fieldname": "affiliate_product",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Affiliate Product",
+   "options": "Affiliate Product",
+   "search_index": 1
+  },
+  {
+   "fieldname": "campaign",
+   "fieldtype": "Link",
+   "label": "Campaign",
+   "options": "Affiliate Campaign"
+  },
+  {
+   "fieldname": "column_break_matching",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Unmatched",
+   "fieldname": "matched_by",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Matched By",
+   "options": "SubId\nProductSku\nManual\nUnmatched",
+   "search_index": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "needs_manual_review",
+   "fieldtype": "Check",
+   "label": "Needs Manual Review",
+   "search_index": 1
+  },
+  {
+   "description": "Unmatched sub-ID preserved for manual reconciliation.",
+   "fieldname": "raw_subid",
+   "fieldtype": "Data",
+   "label": "Raw Sub-ID"
+  },
+  {
+   "fieldname": "raw_product_sku",
+   "fieldtype": "Data",
+   "label": "Raw Product SKU"
+  },
+  {
+   "fieldname": "commission_section",
+   "fieldtype": "Section Break",
+   "label": "Commission & Payout"
+  },
+  {
+   "default": "INR",
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "order_value",
+   "fieldtype": "Currency",
+   "label": "Order Value",
+   "options": "currency"
+  },
+  {
+   "description": "As reported by the affiliate network. Never estimated.",
+   "fieldname": "commission_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Commission Amount",
+   "options": "currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_status",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "commission_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Commission Status",
+   "options": "Pending\nConfirmed\nRejected\nPaid\nReversed",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "description": "Network payout reference; required when Commission Status is Paid.",
+   "fieldname": "payment_reference",
+   "fieldtype": "Data",
+   "label": "Payment Reference"
+  },
+  {
+   "fieldname": "reversal_section",
+   "fieldtype": "Section Break",
+   "label": "Reversal Details"
+  },
+  {
+   "description": "Original Affiliate Conversion reversed by this row (original is retained).",
+   "fieldname": "reversed_conversion",
+   "fieldtype": "Link",
+   "label": "Reversed Conversion",
+   "options": "Affiliate Conversion"
+  },
+  {
+   "fieldname": "reversal_reason",
+   "fieldtype": "Small Text",
+   "label": "Reversal Reason"
+  },
+  {
+   "fieldname": "audit_section",
+   "fieldtype": "Section Break",
+   "label": "Status Audit Trail"
+  },
+  {
+   "fieldname": "status_history",
+   "fieldtype": "Table",
+   "label": "Status History",
+   "options": "Affiliate Conversion Status Log",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-20 14:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Affiliate Commerce",
+ "name": "Affiliate Conversion",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 1,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 0,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Finance",
+   "write": 1
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager"
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Analyst"
+  }
+ ],
+ "sort_field": "conversion_date",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
