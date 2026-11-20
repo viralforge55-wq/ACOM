@@ -1,0 +1,324 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-11-20 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "identity_section",
+  "naming_series",
+  "product_name",
+  "slug",
+  "product_sku",
+  "column_break_marketplace",
+  "marketplace",
+  "affiliate_network",
+  "category",
+  "campaign",
+  "links_section",
+  "affiliate_url",
+  "canonical_url",
+  "commission_section",
+  "commission_type",
+  "commission_rate",
+  "commission_flat_amount",
+  "column_break_pricing",
+  "currency",
+  "display_price",
+  "publishing_section",
+  "status",
+  "content_review_status",
+  "disclosure_required",
+  "column_break_verification",
+  "last_verified_date",
+  "verification_method",
+  "content_section",
+  "image",
+  "short_description",
+  "long_description",
+  "pros",
+  "cons",
+  "seo_section",
+  "seo_title",
+  "seo_description"
+ ],
+ "fields": [
+  {
+   "fieldname": "identity_section",
+   "fieldtype": "Section Break",
+   "label": "Identity"
+  },
+  {
+   "default": "APROD-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "APROD-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Product Name",
+   "length": 140,
+   "reqd": 1
+  },
+  {
+   "fieldname": "slug",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Slug",
+   "reqd": 1,
+   "search_index": 1,
+   "unique": 1
+  },
+  {
+   "description": "External marketplace SKU / ASIN. Never an ERPNext Item Code.",
+   "fieldname": "product_sku",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Marketplace Product SKU",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_marketplace",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "marketplace",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Marketplace",
+   "options": "Amazon\nFlipkart\nMeesho\nMyntra\nAjio\nOther",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "affiliate_network",
+   "fieldtype": "Link",
+   "label": "Affiliate Network",
+   "options": "Affiliate Network",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Item Group",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "campaign",
+   "fieldtype": "Link",
+   "label": "Campaign",
+   "options": "Affiliate Campaign"
+  },
+  {
+   "fieldname": "links_section",
+   "fieldtype": "Section Break",
+   "label": "Links"
+  },
+  {
+   "description": "Validated http(s) URL containing the network tracking parameter. Never exposed directly on public APIs.",
+   "fieldname": "affiliate_url",
+   "fieldtype": "Data",
+   "label": "Affiliate URL",
+   "length": 1024,
+   "reqd": 1
+  },
+  {
+   "fieldname": "canonical_url",
+   "fieldtype": "Data",
+   "label": "Canonical URL",
+   "length": 1024
+  },
+  {
+   "fieldname": "commission_section",
+   "fieldtype": "Section Break",
+   "label": "Commission & Indicative Pricing"
+  },
+  {
+   "default": "Percentage",
+   "fieldname": "commission_type",
+   "fieldtype": "Select",
+   "label": "Commission Type",
+   "options": "Percentage\nFlat\nTiered\nUnknown",
+   "reqd": 1
+  },
+  {
+   "fieldname": "commission_rate",
+   "fieldtype": "Percent",
+   "label": "Commission Rate",
+   "reqd": 1
+  },
+  {
+   "fieldname": "commission_flat_amount",
+   "fieldtype": "Currency",
+   "label": "Commission Flat Amount",
+   "mandatory_depends_on": "eval:doc.commission_type=='Flat'",
+   "options": "currency"
+  },
+  {
+   "fieldname": "column_break_pricing",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "INR",
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "description": "Indicative only; storefront must show 'price may change'.",
+   "fieldname": "display_price",
+   "fieldtype": "Currency",
+   "label": "Display Price",
+   "options": "currency"
+  },
+  {
+   "fieldname": "publishing_section",
+   "fieldtype": "Section Break",
+   "label": "Publishing & Verification"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nPending Approval\nPublished\nPaused\nRejected\nExpired",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "default": "Not Reviewed",
+   "fieldname": "content_review_status",
+   "fieldtype": "Select",
+   "label": "Content Review Status",
+   "options": "Not Reviewed\nApproved\nNeeds Changes"
+  },
+  {
+   "default": "1",
+   "fieldname": "disclosure_required",
+   "fieldtype": "Check",
+   "label": "Disclosure Required",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_verification",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_verified_date",
+   "fieldtype": "Date",
+   "label": "Last Verified Date"
+  },
+  {
+   "fieldname": "verification_method",
+   "fieldtype": "Select",
+   "label": "Verification Method",
+   "options": "\nManual\nAgent\nReport"
+  },
+  {
+   "fieldname": "content_section",
+   "fieldtype": "Section Break",
+   "label": "Editorial Content"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "description": "Maximum 300 characters.",
+   "fieldname": "short_description",
+   "fieldtype": "Small Text",
+   "label": "Short Description"
+  },
+  {
+   "fieldname": "long_description",
+   "fieldtype": "Text Editor",
+   "label": "Long Description"
+  },
+  {
+   "fieldname": "pros",
+   "fieldtype": "Table",
+   "label": "Pros",
+   "options": "Product Highlight"
+  },
+  {
+   "fieldname": "cons",
+   "fieldtype": "Table",
+   "label": "Cons",
+   "options": "Product Highlight"
+  },
+  {
+   "fieldname": "seo_section",
+   "fieldtype": "Section Break",
+   "label": "SEO"
+  },
+  {
+   "fieldname": "seo_title",
+   "fieldtype": "Data",
+   "label": "SEO Title",
+   "length": 160
+  },
+  {
+   "fieldname": "seo_description",
+   "fieldtype": "Small Text",
+   "label": "SEO Description"
+  }
+ ],
+ "image_field": "image",
+ "links": [],
+ "modified": "2026-11-20 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Affiliate Commerce",
+ "name": "Affiliate Product",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "ACOM Editor",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Analyst"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "product_name",
+ "track_changes": 1
+}

@@ -1,6 +1,6 @@
 # DOCKER — PINNED STACK
 
-**Status:** Phase 1 in progress. Image built from upstream `frappe_docker`.
+**Status:** Phase 2 active. Base ERPNext image built from upstream `frappe_docker`; `acom_core` layered cleanly via `Dockerfile.acom`.
 **Baseline:** `frappe/frappe_docker` @ `5a7f074a2bc41dc7db352dc0a87ee4958e86e371` (2026-11-19)
 
 ---
@@ -20,7 +20,8 @@
 | File | Tracked | Purpose |
 |---|---|---|
 | `versions.env` | yes | Single source of truth for pins |
-| `apps.json` | yes | Custom app set for the image build |
+| `apps.json` | yes | Custom app set for the base image build |
+| `Dockerfile.acom` | yes | Layered image adding `apps/acom_core` on top of the base image |
 | `compose.acom.yml` | yes | Memory/CPU limits (ADR-0004) |
 | `acom.env.example` | yes | Compose env template |
 | `acom.env` | **no** | Local secrets — gitignored |

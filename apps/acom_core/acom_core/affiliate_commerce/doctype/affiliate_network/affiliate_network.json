@@ -1,0 +1,143 @@
+{
+ "actions": [],
+ "autoname": "field:network_name",
+ "creation": "2026-11-20 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "network_name",
+  "slug",
+  "program_type",
+  "status",
+  "column_break_tracking",
+  "tracking_param",
+  "payout_cycle",
+  "cookie_window_days",
+  "reporting_section",
+  "report_format",
+  "report_schema",
+  "terms_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "network_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Network Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "slug",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Slug",
+   "reqd": 1,
+   "search_index": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "program_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Program Type",
+   "options": "Marketplace\nNetwork\nDirect",
+   "reqd": 1
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nPaused\nTerminated",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_tracking",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Required query parameter key in affiliate URLs (e.g. tag, affid).",
+   "fieldname": "tracking_param",
+   "fieldtype": "Data",
+   "label": "Tracking Parameter"
+  },
+  {
+   "fieldname": "payout_cycle",
+   "fieldtype": "Select",
+   "label": "Payout Cycle",
+   "options": "\nWeekly\nBiWeekly\nMonthly\nNet30\nNet60"
+  },
+  {
+   "fieldname": "cookie_window_days",
+   "fieldtype": "Int",
+   "label": "Cookie Window Days"
+  },
+  {
+   "fieldname": "reporting_section",
+   "fieldtype": "Section Break",
+   "label": "Reporting & Terms"
+  },
+  {
+   "fieldname": "report_format",
+   "fieldtype": "Select",
+   "label": "Report Format",
+   "options": "CSV\nXLSX\nAPI",
+   "reqd": 1
+  },
+  {
+   "fieldname": "report_schema",
+   "fieldtype": "JSON",
+   "label": "Report Schema"
+  },
+  {
+   "fieldname": "terms_notes",
+   "fieldtype": "Small Text",
+   "label": "Terms Notes"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-20 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Affiliate Commerce",
+ "name": "Affiliate Network",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "ACOM Editor"
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Analyst"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

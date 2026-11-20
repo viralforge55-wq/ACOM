@@ -1,0 +1,24 @@
+# ─────────────────────────────────────────────────────────────
+# PROJECT ACOM — layered custom-app image (acom_core)
+#
+# Layers apps/acom_core on top of the pinned Phase 1 base image without
+# modifying Frappe, ERPNext, or India Compliance, and without repeating
+# the 27-minute base build.
+#
+# Build from the repository root:
+#   docker build -f infrastructure/docker/Dockerfile.acom \
+#     -t acom/erpnext:16.60.0-ic16.9.1-acom0.1.0 .
+# ─────────────────────────────────────────────────────────────
+ARG BASE_IMAGE=acom/erpnext:16.60.0-ic16.9.1
+FROM ${BASE_IMAGE}
+
+USER frappe
+
+COPY --chown=frappe:0 apps/acom_core /home/frappe/frappe-bench/apps/acom_core
+
+# --no-deps guarantees no extra third-party runtime packages are pulled (gate G9).
+RUN UV_CACHE_DIR=/tmp/uv-cache uv pip install \
+      --python /home/frappe/frappe-bench/env/bin/python \
+      --no-deps \
+      -e /home/frappe/frappe-bench/apps/acom_core \
+    && rm -rf /tmp/uv-cache

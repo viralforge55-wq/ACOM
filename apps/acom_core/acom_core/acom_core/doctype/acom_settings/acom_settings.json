@@ -1,0 +1,124 @@
+{
+ "actions": [],
+ "creation": "2026-11-20 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "commerce_defaults_section",
+  "payment_fee_percent",
+  "packaging_cost_default",
+  "return_cost_factor",
+  "target_contribution_margin_pct",
+  "approval_threshold_amount",
+  "affiliate_section",
+  "affiliate_click_retention_days",
+  "affiliate_disclosure_text",
+  "ai_and_automation_section",
+  "ai_max_retries",
+  "ai_task_timeout_seconds",
+  "stale_event_minutes"
+ ],
+ "fields": [
+  {
+   "fieldname": "commerce_defaults_section",
+   "fieldtype": "Section Break",
+   "label": "Commerce Defaults"
+  },
+  {
+   "default": "2.0",
+   "fieldname": "payment_fee_percent",
+   "fieldtype": "Percent",
+   "label": "Payment Fee Percent"
+  },
+  {
+   "default": "0",
+   "fieldname": "packaging_cost_default",
+   "fieldtype": "Currency",
+   "label": "Default Packaging Cost"
+  },
+  {
+   "default": "1.0",
+   "fieldname": "return_cost_factor",
+   "fieldtype": "Float",
+   "label": "Return Cost Factor"
+  },
+  {
+   "default": "35.0",
+   "fieldname": "target_contribution_margin_pct",
+   "fieldtype": "Percent",
+   "label": "Target Contribution Margin %"
+  },
+  {
+   "default": "5000",
+   "fieldname": "approval_threshold_amount",
+   "fieldtype": "Currency",
+   "label": "Approval Threshold Amount"
+  },
+  {
+   "fieldname": "affiliate_section",
+   "fieldtype": "Section Break",
+   "label": "Affiliate Settings"
+  },
+  {
+   "default": "180",
+   "fieldname": "affiliate_click_retention_days",
+   "fieldtype": "Int",
+   "label": "Affiliate Click Retention Days"
+  },
+  {
+   "default": "As an affiliate partner, we may earn a commission from qualifying purchases made through links on this page, at no extra cost to you.",
+   "fieldname": "affiliate_disclosure_text",
+   "fieldtype": "Small Text",
+   "label": "Affiliate Disclosure Text"
+  },
+  {
+   "fieldname": "ai_and_automation_section",
+   "fieldtype": "Section Break",
+   "label": "AI & Automation Limits"
+  },
+  {
+   "default": "2",
+   "fieldname": "ai_max_retries",
+   "fieldtype": "Int",
+   "label": "AI Max Retries"
+  },
+  {
+   "default": "60",
+   "fieldname": "ai_task_timeout_seconds",
+   "fieldtype": "Int",
+   "label": "AI Task Timeout Seconds"
+  },
+  {
+   "default": "30",
+   "fieldname": "stale_event_minutes",
+   "fieldtype": "Int",
+   "label": "Stale Event Minutes"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-11-20 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "ACOM Core",
+ "name": "ACOM Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "email": 0,
+   "print": 0,
+   "read": 1,
+   "role": "System Manager",
+   "share": 0,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "ACOM Manager"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

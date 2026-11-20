@@ -1,0 +1,153 @@
+{
+ "actions": [],
+ "autoname": "field:click_id",
+ "creation": "2026-11-20 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "click_id",
+  "affiliate_product",
+  "campaign_id",
+  "session_id",
+  "clicked_at",
+  "column_break_attribution",
+  "attribution_status",
+  "source",
+  "medium",
+  "landing_path",
+  "referrer",
+  "is_bot_suspected",
+  "user_agent_family"
+ ],
+ "fields": [
+  {
+   "description": "UUIDv4 generated server-side. Sole identifier.",
+   "fieldname": "click_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Click ID",
+   "read_only": 1,
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "affiliate_product",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Affiliate Product",
+   "options": "Affiliate Product",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "campaign_id",
+   "fieldtype": "Data",
+   "label": "Campaign ID",
+   "read_only": 1
+  },
+  {
+   "description": "Random anonymous ID rotated every 30 days. Never PII or a fingerprint.",
+   "fieldname": "session_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Session ID",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "description": "Server timestamp in site timezone; never client-supplied.",
+   "fieldname": "clicked_at",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Clicked At",
+   "read_only": 1,
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_attribution",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Recorded",
+   "fieldname": "attribution_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Attribution Status",
+   "options": "Recorded\nMatched\nUnmatched\nExpired",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Data",
+   "label": "Source"
+  },
+  {
+   "fieldname": "medium",
+   "fieldtype": "Data",
+   "label": "Medium"
+  },
+  {
+   "fieldname": "landing_path",
+   "fieldtype": "Data",
+   "label": "Landing Path",
+   "length": 512
+  },
+  {
+   "description": "Truncated to 512 chars; reduced to host only if it exceeds.",
+   "fieldname": "referrer",
+   "fieldtype": "Data",
+   "label": "Referrer",
+   "length": 512
+  },
+  {
+   "default": "0",
+   "fieldname": "is_bot_suspected",
+   "fieldtype": "Check",
+   "label": "Is Bot Suspected"
+  },
+  {
+   "description": "Coarse family only (Chrome, Safari, Firefox, Edge, Bot, Other). Never raw UA.",
+   "fieldname": "user_agent_family",
+   "fieldtype": "Data",
+   "label": "User Agent Family"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-20 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Affiliate Commerce",
+ "name": "Affiliate Click",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 1,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 0,
+   "write": 1
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Manager"
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "ACOM Analyst"
+  }
+ ],
+ "sort_field": "clicked_at",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0
+}

@@ -131,8 +131,14 @@ Imported from an authorised network report. The only source of affiliate revenue
 | `report_schema` | JSON |  | Column mapping for import |
 | `payout_cycle` | Select |  | `Weekly`, `BiWeekly`, `Monthly`, `Net30`, `Net60` |
 | `cookie_window_days` | Int |  | Attribution window, for reference only |
+| `tracking_param` | Data |  | Required query param key in `Affiliate Product.affiliate_url` (e.g. `tag`, `affid`) |
 | `status` | Select | ✔ | `Active`, `Paused`, `Terminated` |
 | `terms_notes` | Small Text |  | Attribution/disclosure constraints that matter operationally |
+
+### 5.1 Supporting Lookup & Child DocTypes (referenced by §2)
+
+- **`Affiliate Campaign`** (`ACAMP-.#####`): `campaign_name` (Data, req, unique), `slug` (Data, req, unique, immutable), `affiliate_network` (Link → `Affiliate Network`), `status` (`Draft` | `Active` | `Paused` | `Ended`), `start_date` / `end_date` (Date), `utm_campaign` (Data), `notes` (Small Text).
+- **`Product Highlight`** (child table for `Affiliate Product.pros` / `cons`): `text` (Data, req, max 200), `sort_order` (Int).
 
 ---
 
@@ -319,6 +325,7 @@ Outbox. The reliability backbone.
 | `target_contribution_margin_pct` | Research target, default 35 — a guide, not a gate |
 | `approval_threshold_amount` | Above this, financial impact requires explicit approval |
 | `affiliate_click_retention_days` | Default 180 |
+| `affiliate_disclosure_text` | Default affiliate disclosure text returned on public product detail APIs |
 | `ai_max_retries` / `ai_task_timeout_seconds` | Agent runtime limits |
 | `stale_event_minutes` | Dead-letter threshold |
 
