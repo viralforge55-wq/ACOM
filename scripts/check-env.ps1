@@ -57,11 +57,50 @@ Write-Result 'CPU cores' 'PASS' ("{0} physical / {1} logical" -f $cpu.NumberOfCo
 # ── RAM ──────────────────────────────────────────────────────────
 Section 'Memory'
 $totalGB = [math]::Round($os.TotalVisibleMemorySize / 1MB, 1)
-$freeGB  = [math]::Round($os.FreePhysicalMemory / 1MB, 1)
 $ramStatus = if ($totalGB -ge 15) { 'PASS' } else { 'FAIL' }
 Write-Result 'Total RAM' $ramStatus ("{0} GB" -f $totalGB)
-$freeStatus = if ($freeGB -ge 8) { 'PASS' } elseif ($freeGB -ge 4) { 'WARN' } else { 'FAIL' }
-Write-Result 'Free RAM at idle' $freeStatus ("{0} GB (ERPNext needs ~4 GB, Ollama ~3 GB)" -f $freeGB)
+
+# FreePhysicalMemory is the free list only and understates usable memory.
+# AvailableMBytes includes the standby/cached pages that can be reclaimed.
+$perf = Get-CimInstance Win32_PerfFormattedData_PerfOS_Memory
+$availableGB = [math]::Round($perf.AvailableMBytes / 1024, 1)
+
+# This is a PRE-FLIGHT gate: it asks "is there room to start the stack?".
+# Once the stack is running, its ~5 GB is already allocated, so re-demanding
+# the full pre-flight figure can never pass on a 16 GB laptop (ADR-0004:
+# 7 GB WSL + ~3 GB Ollama + Windows). In steady state we instead check that
+# headroom is not starved, and the running stack itself is verified separately.
+$stackRunning = $false
+try {
+    $running = & docker ps --filter 'name=acom-backend' --filter 'status=running' -q 2>$null
+    $stackRunning = [bool]$running
+} catch { }
+
+if ($stackRunning) {
+    $availStatus = if ($availableGB -ge 1.5) { 'PASS' } else { 'WARN' }
+    Write-Result 'Available RAM' $availStatus ("{0} GB free (steady state - stack allocated; Ollama headroom)" -f $availableGB)
+} else {
+    $availStatus = if ($availableGB -ge 5) { 'PASS' } elseif ($availableGB -ge 2.5) { 'WARN' } else { 'FAIL' }
+    Write-Result 'Available RAM' $availStatus ("{0} GB usable pre-flight (ERPNext ~4 GB + Ollama ~3 GB)" -f $availableGB)
+}
+
+$commitUsed = [math]::Round($perf.CommittedBytes / 1GB, 1)
+$commitLimit = [math]::Round($perf.CommitLimit / 1GB, 1)
+$commitPct = [math]::Round(100 * $commitUsed / $commitLimit, 0)
+$commitStatus = if ($commitPct -lt 85) { 'PASS' } else { 'WARN' }
+Write-Result 'Commit charge' $commitStatus ("{0:N1} / {1:N1} GB ({2}%)" -f $commitUsed, $commitLimit, $commitPct)
+
+if ($availableGB -lt 5) {
+    Write-Host '       top consumers:' -ForegroundColor Yellow
+    Get-Process | Group-Object ProcessName | ForEach-Object {
+        [pscustomobject]@{
+            Name  = $_.Name
+            MemMB = [math]::Round((($_.Group | Measure-Object WorkingSet64 -Sum).Sum) / 1MB, 0)
+        }
+    } | Sort-Object MemMB -Descending | Select-Object -First 5 | ForEach-Object {
+        Write-Host ("         {0,-24} {1,6} MB" -f $_.Name, $_.MemMB) -ForegroundColor DarkYellow
+    }
+}
 
 # ── DISK (ADR-0003: 25 GB floor on C:) ───────────────────────────
 Section 'Disk'

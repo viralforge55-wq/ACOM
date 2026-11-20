@@ -1,0 +1,10 @@
+[
+  {
+    "url": "https://github.com/frappe/erpnext",
+    "branch": "v16.60.0"
+  },
+  {
+    "url": "https://github.com/resilient-tech/india-compliance",
+    "branch": "v16.9.1"
+  }
+]

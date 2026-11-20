@@ -14,6 +14,7 @@
 | `swap` | 4 GB | Absorption buffer for MariaDB spikes. Not a substitute for RAM. |
 | `localhostForwarding` | true | Lets the storefront reach ERPNext on `localhost:8000` without host-IP juggling. |
 | `sparseVHD` | true | Prevents the VHDX from claiming disk it no longer uses. |
+| `autoMemoryReclaim` | gradual | Returns unused WSL memory to Windows. Critical on a 16 GB host where `vmmemWSL` otherwise holds pages it no longer needs. |
 
 **Ollama runs on the host, not in WSL** (ADR-0004 §5). Its memory therefore does not come out of the 7 GB WSL budget — but it does compete for the same physical RAM. Do not run a 7B inference while a migration is running.
 

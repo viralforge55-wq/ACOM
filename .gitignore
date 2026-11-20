@@ -55,6 +55,12 @@ yarn-error.log*
 **/.docker-data/
 volumes/
 
+# Vendored upstream baseline — pinned by FRAPPE_DOCKER_COMMIT in versions.env.
+# Reproduce with the two commands documented there; do not commit the clone.
+infrastructure/docker/upstream/
+infrastructure/docker/acom.env
+infrastructure/docker/compose.custom.yaml
+
 # Ollama
 models/
 *.gguf

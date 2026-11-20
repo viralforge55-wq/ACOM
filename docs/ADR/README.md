@@ -10,6 +10,7 @@ An ADR is required **before** implementing any change to the approved architectu
 | [0002](0002-defer-node-red.md) | Defer Node-RED; use Frappe scheduler + Python runner | Accepted | Blueprint §6, §11, §20, §26 |
 | [0003](0003-docker-data-root-on-c.md) | Docker data-root stays on C: | Accepted | Blueprint §15 |
 | [0004](0004-ai-model-ceiling.md) | AI model ceiling for 16 GB / 4 GB VRAM host | Accepted | Blueprint §10, §15 |
+| [0005](0005-pin-erpnext-v16.md) | Pin ERPNext v16, not v15 | Accepted | Phase 0 `.env.example`, Docker pins |
 
 ## When an ADR is required
 

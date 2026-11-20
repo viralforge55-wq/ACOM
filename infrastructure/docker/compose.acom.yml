@@ -1,0 +1,81 @@
+# ─────────────────────────────────────────────────────────────
+# PROJECT ACOM — resource limits override
+#
+# Layered on top of upstream frappe_docker compose.yaml.
+# Budget: WSL2 has 7 GB (ADR-0004). These limits sum to ~5.1 GB,
+# leaving headroom for the kernel, page cache, and the host.
+#
+# Do not raise these without revisiting ADR-0004 and re-running
+# scripts\check-env.ps1.
+# ─────────────────────────────────────────────────────────────
+
+services:
+  db:
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1536M
+
+  redis-cache:
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 192M
+
+  redis-queue:
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 192M
+
+  configurator:
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+  backend:
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1024M
+
+  websocket:
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 384M
+
+  queue-short:
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+
+  queue-long:
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+
+  scheduler:
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+
+  frontend:
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
