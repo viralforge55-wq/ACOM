@@ -26,6 +26,7 @@ export type CatalogProductCard = {
   sales_type: SalesType;
   category: CategoryRef;
   image_url?: string;
+  images?: string[];
   display_price?: Money;
   marketplace: string;
   badge?: string;
@@ -47,6 +48,7 @@ export type AffiliateProductDetail = {
   pros: string[];
   cons: string[];
   image_url?: string;
+  images?: string[];
   display_price?: Money;
   short_description?: string;
   long_description?: string;
@@ -71,6 +73,7 @@ export type DropshipProductDetail = {
   hsn_category?: string;
   return_policy_summary?: string;
   image_url?: string;
+  images?: string[];
   short_description?: string;
   cta_label: "Add to Cart";
 };

@@ -28,12 +28,12 @@ export function ProductCard({ item }: ProductCardProps) {
         </div>
 
         {item.image_url ? (
-          <Link href={`/products/${item.slug}`} className="mb-4 block overflow-hidden rounded bg-paper">
+          <Link href={`/products/${item.slug}`} className="mb-4 block overflow-hidden rounded border border-line bg-white">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={item.image_url}
               alt={item.title}
-              className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+              className="aspect-[4/3] w-full object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
             />
           </Link>
         ) : (

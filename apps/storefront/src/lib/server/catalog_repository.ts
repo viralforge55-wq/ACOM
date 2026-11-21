@@ -13,42 +13,9 @@ import { assertNoBannedFields, isValidSlug } from "./security";
 export const CURATED_KITCHEN_PRODUCTS: AffiliateProductDetail[] = [
   {
     id: "APROD-KITCHEN-001",
-    slug: "12-in-1-vegetable-chopper-slicer",
-    title: "12-in-1 Multipurpose Vegetable Chopper & Slicer with Drain Basket",
-    product_sku: "B08H73T634",
-    sales_type: "AFFILIATE",
-    category: { slug: "kitchen-tools", name: "Kitchen Tools" },
-    marketplace: "Amazon",
-    cta_label: "View Deal",
-    disclosure_required: true,
-    affiliate_disclosure:
-      "As an Amazon Associate, ACOM earns from qualifying purchases. Final price and stock are confirmed on Amazon.in.",
-    view_deal_url: "https://www.amazon.in/dp/B08H73T634?tag=acom0a7-21",
-    pros: [
-      "12 interchangeable heavy-duty stainless steel blades",
-      "Built-in drain basket & catch container cuts prep time in half",
-      "BPA-free food grade durable plastic body",
-      "Easy push-to-clean button for fast maintenance",
-    ],
-    cons: [
-      "Blades are extremely sharp, requires careful handling",
-      "Hand wash recommended rather than harsh dishwashers",
-    ],
-    image_url: "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=800&q=80",
-    display_price: { amount: "499.00", currency: "INR" },
-    short_description:
-      "The ultimate Indian kitchen prep station for quick dicing, slicing, and chopping of onions, tomatoes, and vegetables.",
-    long_description:
-      "Save up to 70% of your daily meal preparation time with this 12-in-1 multifunctional vegetable chopper. Designed specifically for Indian cooking needs, it effortlessly handles tough onions, firm potatoes, soft tomatoes, and crisp cucumbers without tears or mess.",
-    seo_title: "12-in-1 Multipurpose Vegetable Chopper & Slicer — Best Kitchen Deal India",
-    seo_description:
-      "Buy the 12-in-1 multipurpose vegetable chopper with drain basket at best price in India. Top-rated kitchen gadget for quick vegetable chopping.",
-  },
-  {
-    id: "APROD-KITCHEN-002",
     slug: "automatic-electric-water-dispenser-pump",
-    title: "Automatic USB Rechargeable Electric Water Dispenser Pump for 20L Cans",
-    product_sku: "B07T7W7N88",
+    title: "Automatic Wireless Water Dispenser Pump for 20 Litre Bottle (USB Rechargeable)",
+    product_sku: "B0HL4P1CW1",
     sales_type: "AFFILIATE",
     category: { slug: "kitchen-appliances", name: "Kitchen Appliances" },
     marketplace: "Amazon",
@@ -56,32 +23,79 @@ export const CURATED_KITCHEN_PRODUCTS: AffiliateProductDetail[] = [
     disclosure_required: true,
     affiliate_disclosure:
       "As an Amazon Associate, ACOM earns from qualifying purchases. Final price and stock are confirmed on Amazon.in.",
-    view_deal_url: "https://www.amazon.in/dp/B07T7W7N88?tag=acom0a7-21",
+    view_deal_url: "https://www.amazon.in/dp/B0HL4P1CW1?tag=acom0a7-21",
     pros: [
-      "Fits universal 20-liter standard water jars seamlessly",
-      "Long-lasting 1200mAh USB rechargeable battery (pumps 4-6 jars per charge)",
-      "Food-grade silicone hose and 304 stainless steel spout",
-      "Simple one-touch waterproof operation",
+      "Fits universal standard 20-litre & 19-litre water cans effortlessly",
+      "Long-lasting 1200mAh USB rechargeable battery (pumps 4-6 water jars per charge)",
+      "Food-grade silicone hose and 304 stainless steel spout pipe",
+      "One-touch waterproof switch for instant hands-free dispensing",
     ],
     cons: [
-      "Does not chill or heat water (ambient temperature dispensing only)",
-      "Must not be submerged in water during cleaning",
+      "Dispenses ambient temperature water (does not heat or chill)",
+      "Do not submerge the pump unit in water while cleaning",
     ],
-    image_url: "https://images.unsplash.com/photo-1548839140-29a749e1bc4e?auto=format&fit=crop&w=800&q=80",
-    display_price: { amount: "349.00", currency: "INR" },
+    image_url: "https://m.media-amazon.com/images/I/61mi83F8-LL.jpg",
+    images: [
+      "https://m.media-amazon.com/images/I/61mi83F8-LL.jpg",
+      "https://m.media-amazon.com/images/I/717bFmRoqLL.jpg",
+      "https://m.media-amazon.com/images/I/711K0hREfaL.jpg",
+      "https://m.media-amazon.com/images/I/81fZf5fFG2L.jpg",
+      "https://m.media-amazon.com/images/I/71UP87xjfuL.jpg",
+    ],
+    display_price: { amount: "229.00", currency: "INR" },
     short_description:
       "Wireless automatic drinking water pump with one-touch button for hassle-free dispensing from 20-liter water cans.",
     long_description:
-      "No more heavy lifting, spilling, or manual pumping from heavy 20-liter water jars. This portable, USB-rechargeable electric water dispenser pumps water instantly at the touch of a button.",
-    seo_title: "Automatic Electric Water Dispenser Pump for 20L Jars — Top Deal",
+      "No more heavy lifting, spilling, or manual pumping from heavy 20-liter water jars. This portable, USB-rechargeable electric water dispenser pumps water instantly at the touch of a button. Features food-grade silicone tubing and durable battery life.",
+    seo_title: "Automatic Wireless Water Dispenser Pump for 20L Cans — Top Deal",
     seo_description:
-      "Get the best wireless rechargeable automatic water dispenser pump for 20-liter cans in India. One-touch operation with food-grade silicone pipe.",
+      "Buy wireless rechargeable automatic water dispenser pump for 20-liter bottles in India at ₹229. One-touch operation with food-grade silicone pipe.",
+  },
+  {
+    id: "APROD-KITCHEN-002",
+    slug: "12-in-1-vegetable-chopper-slicer",
+    title: "Ganesh 14-in-1 Multipurpose Vegetable & Fruit Chopper with Stainless Steel Blades",
+    product_sku: "B01BVDS1BE",
+    sales_type: "AFFILIATE",
+    category: { slug: "kitchen-tools", name: "Kitchen Tools" },
+    marketplace: "Amazon",
+    cta_label: "View Deal",
+    disclosure_required: true,
+    affiliate_disclosure:
+      "As an Amazon Associate, ACOM earns from qualifying purchases. Final price and stock are confirmed on Amazon.in.",
+    view_deal_url: "https://www.amazon.in/dp/B01BVDS1BE?tag=acom0a7-21",
+    pros: [
+      "14 interchangeable stainless steel cutting blades and graters",
+      "Unbreakable food-grade body with built-in collection container",
+      "Quick push-to-clean button for fast clearing of vegetable residue",
+      "Cuts meal prep and vegetable dicing time by over 70%",
+    ],
+    cons: [
+      "Blades are extremely sharp, always use hand safety guard",
+      "Hand washing recommended for blade longevity",
+    ],
+    image_url: "https://m.media-amazon.com/images/I/41y4Ik5axHL.jpg",
+    images: [
+      "https://m.media-amazon.com/images/I/41y4Ik5axHL.jpg",
+      "https://m.media-amazon.com/images/I/417hy14GFaL.jpg",
+      "https://m.media-amazon.com/images/I/41e2S9+f8UL.jpg",
+      "https://m.media-amazon.com/images/I/518paPwDcsL.jpg",
+      "https://m.media-amazon.com/images/I/519mlJ4jNgL.jpg",
+    ],
+    display_price: { amount: "679.00", currency: "INR" },
+    short_description:
+      "The ultimate Indian kitchen prep station for quick dicing, slicing, and chopping of onions, tomatoes, and vegetables.",
+    long_description:
+      "Save up to 70% of your daily meal preparation time with this 14-in-1 multipurpose vegetable chopper. Designed specifically for Indian cooking needs, it effortlessly handles tough onions, firm potatoes, soft tomatoes, and crisp cucumbers without tears or mess.",
+    seo_title: "14-in-1 Multipurpose Vegetable Chopper & Slicer — Best Kitchen Deal India",
+    seo_description:
+      "Buy the Ganesh multipurpose vegetable chopper at best price in India. Top-rated kitchen gadget for quick vegetable chopping.",
   },
   {
     id: "APROD-KITCHEN-003",
     slug: "2-in-1-spray-pour-oil-dispenser-bottle",
-    title: "2-in-1 Press & Spray Dual-Mode Glass Oil Dispenser Bottle (500ml)",
-    product_sku: "B0D3DWZ17N",
+    title: "2-in-1 Dual-Mode Glass Oil Dispenser & Sprayer for Kitchen (500ml)",
+    product_sku: "B0HKMZRTKG",
     sales_type: "AFFILIATE",
     category: { slug: "kitchenware", name: "Kitchenware" },
     marketplace: "Amazon",
@@ -89,19 +103,26 @@ export const CURATED_KITCHEN_PRODUCTS: AffiliateProductDetail[] = [
     disclosure_required: true,
     affiliate_disclosure:
       "As an Amazon Associate, ACOM earns from qualifying purchases. Final price and stock are confirmed on Amazon.in.",
-    view_deal_url: "https://www.amazon.in/dp/B0D3DWZ17N?tag=acom0a7-21",
+    view_deal_url: "https://www.amazon.in/dp/B0HKMZRTKG?tag=acom0a7-21",
     pros: [
       "Dual mode: fine mist spray for air fryers/dosa + precision pour spout",
       "Lead-free thick borosilicate glass body (heat & scratch resistant)",
-      "Reduces daily oil consumption by up to 50% for healthy living",
+      "Reduces daily cooking oil consumption by up to 50% for healthy living",
       "Wide mouth bottle for easy refilling without funnels",
     ],
     cons: [
       "Glass bottle requires careful countertop handling",
-      "Thick oils should be at room temperature for spray mode",
+      "Dense cooking oils should be kept at room temperature for optimal spray mist",
     ],
-    image_url: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=800&q=80",
-    display_price: { amount: "399.00", currency: "INR" },
+    image_url: "https://m.media-amazon.com/images/I/41GI9a+D3ZL.jpg",
+    images: [
+      "https://m.media-amazon.com/images/I/41GI9a+D3ZL.jpg",
+      "https://m.media-amazon.com/images/I/41m6148pL0L.jpg",
+      "https://m.media-amazon.com/images/I/51NLpcCAfnL.jpg",
+      "https://m.media-amazon.com/images/I/41+LhV7RfIL.jpg",
+      "https://m.media-amazon.com/images/I/51X4zyzvEUL.jpg",
+    ],
+    display_price: { amount: "189.00", currency: "INR" },
     short_description:
       "Dual-function leakproof glass oil container with precision spray nozzle for air frying, tawa cooking, and salads.",
     long_description:
@@ -112,9 +133,49 @@ export const CURATED_KITCHEN_PRODUCTS: AffiliateProductDetail[] = [
   },
   {
     id: "APROD-KITCHEN-004",
-    slug: "rotary-drum-vegetable-slicer-grater",
-    title: "Rotary Drum Vegetable Slicer & Cheese/Paneer Grater with Suction Base",
-    product_sku: "B08PBDZ12Q",
+    slug: "pigeon-amaze-plus-electric-kettle-1-5l",
+    title: "Pigeon by Stovekraft Amaze Plus 1.5L Stainless Steel Electric Kettle",
+    product_sku: "B07WMS7TWB",
+    sales_type: "AFFILIATE",
+    category: { slug: "kitchen-appliances", name: "Kitchen Appliances" },
+    marketplace: "Amazon",
+    cta_label: "View Deal",
+    disclosure_required: true,
+    affiliate_disclosure:
+      "As an Amazon Associate, ACOM earns from qualifying purchases. Final price and stock are confirmed on Amazon.in.",
+    view_deal_url: "https://www.amazon.in/dp/B07WMS7TWB?tag=acom0a7-21",
+    pros: [
+      "1500W rapid boil boils 1.5 liters of water in under 5 minutes",
+      "360-degree swivel base with cordless pouring convenience",
+      "Automatic shut-off with dry boil protection for complete safety",
+      "Premium mirror-finish food-grade stainless steel interior",
+    ],
+    cons: [
+      "Body gets hot while boiling (use heat-resistant cool-touch handle)",
+      "Cord length is optimized for countertop safety (~1 meter)",
+    ],
+    image_url: "https://m.media-amazon.com/images/I/61UhSgdSBDL.jpg",
+    images: [
+      "https://m.media-amazon.com/images/I/61UhSgdSBDL.jpg",
+      "https://m.media-amazon.com/images/I/71OwY1Q2WPL.jpg",
+      "https://m.media-amazon.com/images/I/71nY5irJjYL.jpg",
+      "https://m.media-amazon.com/images/I/61ovEhLhpZL.jpg",
+      "https://m.media-amazon.com/images/I/71NL+88ogCL.jpg",
+    ],
+    display_price: { amount: "489.00", currency: "INR" },
+    short_description:
+      "Classic stainless steel electric kettle with automatic shut-off and rapid 1500W boiling for tea, coffee, and noodles.",
+    long_description:
+      "India's best-selling electric kettle. The Pigeon Amaze Plus 1.5L kettle combines rapid heating with safety features including automatic cut-off and dry boil protection, ideal for quick morning tea, oatmeal, and boiled drinking water.",
+    seo_title: "Pigeon Amaze Plus 1.5L Electric Kettle — Best Price India",
+    seo_description:
+      "Buy Pigeon Amaze Plus 1.5L stainless steel electric kettle with auto shut-off at best online price in India.",
+  },
+  {
+    id: "APROD-KITCHEN-005",
+    slug: "pigeon-handy-compact-vegetable-chopper",
+    title: "Pigeon Handy and Compact 3-Blade Manual Vegetable Chopper (400ml)",
+    product_sku: "B01LWYDEQ7",
     sales_type: "AFFILIATE",
     category: { slug: "kitchen-tools", name: "Kitchen Tools" },
     marketplace: "Amazon",
@@ -122,26 +183,33 @@ export const CURATED_KITCHEN_PRODUCTS: AffiliateProductDetail[] = [
     disclosure_required: true,
     affiliate_disclosure:
       "As an Amazon Associate, ACOM earns from qualifying purchases. Final price and stock are confirmed on Amazon.in.",
-    view_deal_url: "https://www.amazon.in/dp/B08PBDZ12Q?tag=acom0a7-21",
+    view_deal_url: "https://www.amazon.in/dp/B01LWYDEQ7?tag=acom0a7-21",
     pros: [
-      "1 turn equals 12 cuts: shreds paneer, carrots, cabbage in seconds",
-      "Powerful vacuum suction base locks firmly onto kitchen slabs",
-      "3 interchangeable stainless steel drums (slicing, coarse shred, fine shred)",
-      "Zero hand contact with blades prevents accidental cuts",
+      "Over 200,000+ 5-star ratings: India's #1 most popular kitchen gadget",
+      "Requires zero electricity: smooth string pull mechanism",
+      "3 high-precision stainless steel blades chop in under 10 pulls",
+      "Compact, easy to wash, and travel-friendly",
     ],
     cons: [
-      "Requires flat, non-porous countertop surface for vacuum suction lock",
-      "Not suitable for ultra-hard items like whole nutmeg",
+      "400ml volume is ideal for 1-3 people (batch chopping needed for large parties)",
+      "Avoid pulling cord to the extreme end to maintain spring tension",
     ],
-    image_url: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80",
-    display_price: { amount: "499.00", currency: "INR" },
+    image_url: "https://m.media-amazon.com/images/I/41cVgYgAKpL.jpg",
+    images: [
+      "https://m.media-amazon.com/images/I/41cVgYgAKpL.jpg",
+      "https://m.media-amazon.com/images/I/314y197f2rL.jpg",
+      "https://m.media-amazon.com/images/I/41pZoaJINAL.jpg",
+      "https://m.media-amazon.com/images/I/51PfXlJiYTL.jpg",
+      "https://m.media-amazon.com/images/I/51S+DCyw3PL.jpg",
+    ],
+    display_price: { amount: "199.00", currency: "INR" },
     short_description:
-      "Manual hand-crank rotary grater with strong suction base and 3 stainless steel drum blades for fast shredding.",
+      "India's best-selling pull-cord mini vegetable chopper for instantaneous dicing of onions, garlic, and chillies without tears.",
     long_description:
-      "Make halwa, salad prep, and pizza toppings effortless. This rotary drum grater features razor-sharp German-grade stainless steel barrels to shred fresh paneer, cabbage, cheese, potatoes, and nuts with effortless hand turns.",
-    seo_title: "Rotary Drum Vegetable Slicer & Paneer Grater with Suction Base",
+      "Effortlessly chop onions, garlic, ginger, and vegetables in seconds with the Pigeon Handy Chopper. Powered by a durable pull-cord mechanism and 3 sharp stainless steel blades, it requires no electricity and takes seconds to clean.",
+    seo_title: "Pigeon Handy and Compact Chopper (400ml) — Best Deal India",
     seo_description:
-      "Best tabletop rotary drum vegetable grater and slicer in India. Safe, fast hand-crank shredder for cheese, paneer, and vegetables.",
+      "Buy Pigeon Mini Handy Chopper 400ml with 3 blades at ₹199. India's top-rated kitchen chopper on Amazon.",
   },
 ];
 
@@ -153,6 +221,7 @@ function fallbackCards(): CatalogProductCard[] {
     sales_type: p.sales_type,
     category: p.category,
     image_url: p.image_url,
+    images: p.images,
     display_price: p.display_price,
     marketplace: p.marketplace,
     badge: "Trending in Kitchen",
@@ -196,7 +265,15 @@ export async function fetchCatalog(
     // Upstream unavailable; fall back to verified curated products
   }
 
-  const items = fallbackCards();
+  let items = fallbackCards();
+  if (query.category) {
+    const catSlug = query.category.toLowerCase();
+    items = items.filter((item) => item.category.slug === catSlug);
+  }
+  if (query.sales_type) {
+    items = items.filter((item) => item.sales_type === query.sales_type);
+  }
+
   return {
     status: 200,
     envelope: {
@@ -295,7 +372,7 @@ export async function fetchCategories(
 
   const categories: CategorySummary[] = [
     { slug: "kitchen-tools", name: "Kitchen Tools", product_count: 2, parent: null },
-    { slug: "kitchen-appliances", name: "Kitchen Appliances", product_count: 1, parent: null },
+    { slug: "kitchen-appliances", name: "Kitchen Appliances", product_count: 2, parent: null },
     { slug: "kitchenware", name: "Kitchenware", product_count: 1, parent: null },
   ];
 

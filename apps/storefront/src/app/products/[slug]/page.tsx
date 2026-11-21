@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { DisclosureBanner } from "@/components/DisclosureBanner";
 import { ProductActionRouter } from "@/components/ProductActionRouter";
+import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { formatMoney } from "@/lib/format";
 import { fetchProductBySlug } from "@/lib/server/catalog_repository";
 
@@ -68,20 +69,13 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          {product.image_url ? (
-            <div className="overflow-hidden rounded-lg border border-line bg-surface">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={product.image_url}
-                alt={product.title}
-                className="aspect-[4/3] w-full object-cover"
-              />
-            </div>
-          ) : (
-            <div className="flex aspect-[4/3] items-center justify-center rounded-lg border border-dashed border-line bg-surface text-xs uppercase tracking-widest text-muted">
-              {isAffiliate ? `${product.marketplace} Product` : "ACOM Direct Product"}
-            </div>
-          )}
+          <ProductImageGallery
+            title={product.title}
+            mainImage={product.image_url}
+            images={product.images}
+            marketplace={isAffiliate ? product.marketplace : "ACOM"}
+            salesType={product.sales_type}
+          />
         </div>
 
         <div className="space-y-6 lg:col-span-7">
