@@ -1,0 +1,151 @@
+{
+ "app": "acom_core",
+ "charts": [],
+ "content": "[{\"id\": \"ceo_card0\", \"type\": \"card\", \"data\": {\"card_name\": \"Executive Dashboards\", \"col\": 4}}, {\"id\": \"ceo_card1\", \"type\": \"card\", \"data\": {\"card_name\": \"Operations & Exceptions\", \"col\": 4}}, {\"id\": \"ceo_card2\", \"type\": \"card\", \"data\": {\"card_name\": \"Commerce Intelligence\", \"col\": 4}}]",
+ "creation": "2026-11-21 10:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "dashboard",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "ACOM Executive Analytics",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Executive Dashboards",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Daily CEO Dashboard",
+   "link_count": 0,
+   "link_to": "Daily CEO Dashboard",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Product Profitability Analytics",
+   "link_count": 0,
+   "link_to": "Product Profitability Analytics",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Affiliate Commission Reconciliation",
+   "link_count": 0,
+   "link_to": "Affiliate Commission Reconciliation",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Operations & Exceptions",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Supplier Performance Analytics",
+   "link_count": 0,
+   "link_to": "Supplier Performance Analytics",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "AI Approval Requests",
+   "link_count": 0,
+   "link_to": "AI Approval Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Automation Outbox Events",
+   "link_count": 0,
+   "link_to": "Automation Event",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Commerce Intelligence",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Dropship Checkouts",
+   "link_count": 0,
+   "link_to": "Dropship Checkout",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Dropshipping Products",
+   "link_count": 0,
+   "link_to": "Dropshipping Product",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Affiliate Products",
+   "link_count": 0,
+   "link_to": "Affiliate Product",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "module": "Analytics",
+ "name": "ACOM Executive Analytics",
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "ACOM Manager"
+  },
+  {
+   "role": "ACOM Finance"
+  }
+ ],
+ "sequence_id": 1.0,
+ "standard": 1,
+ "title": "ACOM Executive Analytics",
+ "type": "Workspace"
+}
