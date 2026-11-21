@@ -202,14 +202,14 @@ export const CURATED_KITCHEN_PRODUCTS: AffiliateProductDetail[] = [
       "https://m.media-amazon.com/images/I/51PfXlJiYTL.jpg",
       "https://m.media-amazon.com/images/I/51S+DCyw3PL.jpg",
     ],
-    display_price: { amount: "199.00", currency: "INR" },
+    display_price: { amount: "262.00", currency: "INR" },
     short_description:
       "India's best-selling pull-cord mini vegetable chopper for instantaneous dicing of onions, garlic, and chillies without tears.",
     long_description:
       "Effortlessly chop onions, garlic, ginger, and vegetables in seconds with the Pigeon Handy Chopper. Powered by a durable pull-cord mechanism and 3 sharp stainless steel blades, it requires no electricity and takes seconds to clean.",
     seo_title: "Pigeon Handy and Compact Chopper (400ml) — Best Deal India",
     seo_description:
-      "Buy Pigeon Mini Handy Chopper 400ml with 3 blades at ₹199. India's top-rated kitchen chopper on Amazon.",
+      "Buy Pigeon Mini Handy Chopper 400ml with 3 blades at ₹262. India's top-rated kitchen chopper on Amazon.",
   },
 ];
 
