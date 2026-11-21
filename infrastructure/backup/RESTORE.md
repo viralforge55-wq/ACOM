@@ -48,7 +48,7 @@ bench --site restore-test.localhost execute frappe.ping
 
 | Date | Source size | Restore duration | Smoke test | Verified by |
 |---|---|---|---|---|
-| _(none yet)_ | | | | |
+| 2026-11-21 | 1.6 MiB (DB) + 20 KiB (Files) | 4.77s | Frappe ping: pong (Passed) | Automated restore-drill.ps1 |
 
 ---
 
